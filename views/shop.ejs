@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shoe</title>
+    <style>
+        .element{
+            display: flex;
+            border: 2px solid red;
+            margin: auto 50px;
+            width: 80%;
+            height: 500px;
+        }
+        .img{
+            border: 2px solid rgb(0, 255, 106);
+            margin-top: 20px;
+            margin-left: 10px;
+            width: 50%;
+            height: 400px;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>category hj <%=result[0].size%></h1>
+    <h1>you are viewing  <%=result[0].name%></h1>
+
+
+    <div class="element">
+        <div class="img">
+
+        </div>
+        <div class="details">
+            <h2>name -------------<%=result[0].name%></h2>
+            <h2>company -------------<%=result[0].company%></h2>
+            <h2>cost -------------<%=result[0].cost%></h2>
+            <h2>size -------------<%=result[0].size%></h2>
+            <h2>stock -------------<%=result[0].stock%></h2>
+
+            <form action="cart/<%=result[0].name%>">
+                <button>add cart</button>
+                <div class="inout">
+                    quantity<input type="text" name="quantity">
+        
+                </div>
+                
+            </form>
+
+
+            
+            <form action="">
+                <button>buy now</button>
+                
+            </form>
+        </div>
+    </div>
+    <div class="review">
+        <h3>reviews</h3>
+        <% for(let item of result){ %>
+            
+               
+                    <div class="element">
+                        <h2>name -------------<%=item.cust_name%></h2>
+                        <h4>review -------------<%=item.review%></h4>
+                        
+                    </div>
+               
+        <%}%>
+    </div>
+    
+</body>
+</html>

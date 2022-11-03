@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shoes</title>
+    <link rel="stylesheet" href="/css/sign.css">
+   
+
+</head>
+
+<body>
+
+
+    <video class="backvdo" src="/file/bg1.mp4"  autoplay="" width="100%" height=auto muted loop>
+    </video>
+    
+    <div class="main">
+
+        <h1><%=errMessage%></h1>
+
+        <div class="heading">
+            <h1 class="f">welcome to shoes</h1>
+        </div>
+        <div class="form">
+            <div class="title">Sign In</div>
+
+            <form action="/sign_in" method="post">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username">
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+                    <button class="sign-in-btn" type="submit">Sign In</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

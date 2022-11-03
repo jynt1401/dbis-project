@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shoes</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+        .slides{
+            border: 2px solid red;
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="right">
+            <ul class="nav-details">
+                <li><a href=""></a> home</li>
+                <li><a href=""></a> shopping</li>
+
+                <li><a href=""></a> contact</li>
+            </ul>
+
+        </div>
+       
+        <div class="left">
+            <div class="profile">
+                <form action="/profile/<%=result[0].username%>">
+                    <button class="prf-btn"> </button>
+                </form>
+
+                <div class="greet">
+                    hello <%=result[0].username%> ...
+                </div>
+            </div>
+            <div class="cart">
+                cart
+
+            </div>
+            <div class="logout">
+                <form action="/logout">
+                    <button>logout</button>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+
+    <h1>this is home after the signin</h1>
+
+    <div class="slides">
+        auto slides
+    </div>
+    <div class="shopping">
+        <h2>shopping</h2>
+        
+        <div class="mens">
+            <h1>===================</h1>
+            <h1>mens</h1>
+            <h1>===================</h1>
+
+            <% for(let item of result){ %>
+                <form action="/shop/<%=item.name%>">
+                    <button>
+                        <div class="element">
+                            <div class="img"> <div class="boximg">image here</div></div>
+                            <div class="info">
+                                <h2>name -------------<%=item.name%></h2>
+                                <h3>company------<%=item.company%></h3>
+                                <h3>cost---------<%=item.cost%></h3>
+                                
+                                <h3>category------<%=item.category%></h3>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+            <%}%>
+
+
+
+        </div>
+        <div class="womens">
+            <h1>===================</h1>
+            <h1>womens</h1>
+            <h1>===================</h1>
+
+            <% for(let item of result){ %>
+                <form action="/shop/<%=item.name%>">
+                    <button>
+                        <div class="element">
+                            <div class="img"> <div class="boximg">image here</div></div>
+                            <div class="info">
+                                <h2>name -------------<%=item.name%></h2>
+                                <h3>company------<%=item.company%></h3>
+                                <h3>cost---------<%=item.cost%></h3>
+                               
+                                <h3>category------<%=item.category%></h3>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+            <%}%>
+
+        </div>
+        <div class="kids">
+            <h1>===================</h1>
+            <h1>kids</h1>
+            <h1>===================</h1>
+
+            <% for(let item of result){ %>
+                <form action="/shop/<%=item.name%>">
+                    <button>
+                        <div class="element">
+                            <div class="img"> <div class="boximg">image here</div></div>
+                            <div class="info">
+                                <h2>name -------------<%=item.name%></h2>
+                                <h3>company------<%=item.company%></h3>
+                                <h3>cost---------<%=item.cost%></h3>
+                               
+                                <h3>category------<%=item.category%></h3>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+            <%}%>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

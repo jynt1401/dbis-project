@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+nav{
+    display: flex;
+    background-color: aqua;
+    height: 3rem;
+    border: 2px solid red;
+    justify-content: space-between;
+}
+.right{
+    margin: 0.7rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid green;
+    
+    width: 500px;
+    height: 20px;
+}
+
+
+.mid{
+    border: 1px solid green;
+    width: 200px;
+    height: 20px;
+}
+.left{
+    justify-content: space-around;
+    display: flex;
+    border: 1px solid green;
+    width: 600px;
+    height: 20px;
+}
+.img-profile{
+    width: 40px;
+    border-radius: 50px;
+}
+.profile{
+    display: flex;
+}
+.prf-btn{
+    background-image: url('https://media.istockphoto.com/photos/millennial-male-team-leader-organize-virtual-workshop-with-employees-picture-id1300972574?b=1&k=20&m=1300972574&s=170667a&w=0&h=2nBGC7tr0kWIU8zRQ3dMg-C5JLo9H2sNUuDjQ5mlYfo=');
+    width: 28px;
+    height: 28px;
+    background-position: center;
+    cursor: pointer;
+}

@@ -1,0 +1,8 @@
+.BOX{
+    
+    display: flex;
+}
+.name{
+    margin-right: 5rem;
+    margin-bottom: 1rem;
+}
