@@ -1,83 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>shoes</title>
     <style>
-        .box{
-            display: flex;
-            border: 2px solid red;
-            width: 80%;
-            height: 80%;
-            margin: auto auto;
-        }
-        .img{
-            border: 2px solid rgb(0, 255, 94);
-            width: 50%;
-            height: 500px;
-            margin: 10px 10px;
-
-        }
-        .info{
-            border: 2px solid rgb(0, 255, 94);
-            width: 50%;
-            height: 500px;
-            margin: 10px 10px;
-
-        }
-        .details{
-            display: flex;
-        }
+      .box {
+        display: flex;
+        border: 2px solid red;
+        width: 80%;
+        height: 80%;
+        margin: auto auto;
+      }
+      .img {
+        border: 2px solid rgb(0, 255, 94);
+        width: 50%;
+        height: 500px;
+        margin: 10px 10px;
+      }
+      .info {
+        border: 2px solid rgb(0, 255, 94);
+        width: 50%;
+        height: 500px;
+        margin: 10px 10px;
+      }
+      .details {
+        display: flex;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <header><%- include('navbar-admin') %></header>
+  <body>
     <h1>we will update shoes</h1>
 
     <div class="box">
-        <div class="img">img</div>
+      <div class="img">img</div>
 
-
-        <div class="info">
-            <div class="details">
-                <div class="name">NAME----------------</div>
-                <div class="placeholder"><%=result[0].name%></div>
-            </div>
-            <div class="details">
-                <div class="name">COMPANY----------------</div>
-                <div class="placeholder"><%=result[0].company%></div>
-            </div>
-            <div class="details">
-                <div class="name">size----------------</div>
-                <div class="placeholder"><%=result[0].size%></div>
-            </div>
-            <div class="details">
-                <div class="name">cost----------------</div>
-                <div class="placeholder"><%=result[0].cost%></div>
-            </div>
-            <div class="details">
-                <div class="name">stock----------------</div>
-                <div class="placeholder"><%=result[0].stock%></div>
-            </div>
-
-            <form action="/update_shoes_finally" method="post">
-                <div class="inout">
-                    Increase stock by<input type="text" name="stock">
-        
-                </div>
-                <div class="inout">
-                    set prise<input type="text" name="cost">
-        
-                </div>
-                <button> update</button>
-               
-            </form>
-
+      <div class="info">
+        <div class="details">
+          <div class="name">NAME----------------</div>
+          <div class="placeholder"><%=result[0].name%></div>
+        </div>
+        <div class="details">
+          <div class="name">COMPANY----------------</div>
+          <div class="placeholder"><%=result[0].company%></div>
+        </div>
+        <div class="details">
+          <div class="name">size----------------</div>
+          <div class="placeholder"><%=result[0].size%></div>
+        </div>
+        <div class="details">
+          <div class="name">cost----------------</div>
+          <div class="placeholder"><%=result[0].cost%></div>
+        </div>
+        <div class="details">
+          <div class="name">stock----------------</div>
+          <div class="placeholder"><%=result[0].stock%></div>
         </div>
 
+        <form action="/update_shoes_finally" method="post">
+          <div class="inout">
+            Increase stock by<input type="text" name="stock" />
+          </div>
+          <div class="inout">set prise<input type="text" name="cost" /></div>
+          <button>update</button>
+        </form>
+      </div>
     </div>
-    
-    
-</body>
+  </body>
 </html>

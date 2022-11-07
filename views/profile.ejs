@@ -1,49 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>shoes</title>
-    <link rel="stylesheet" href="/css/profile.css">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="/css/profile.css" />
+  </head>
+  <body>
     <h1>here is your details</h1>
-    <h2>
-        hello ...<%= result[0].username %>
-    </h2>
-   
-    <div class="BOX">
-        <div class="name">NAME</div>
-        <div class="placeholder"><%=result[0].username%></div>
-    </div>
-    <div class="BOX">
-        <div class="name">EMAIL</div>
-        <div class="placeholder"><%=result[0].email%></div>
-    </div>
-    <div class="BOX">
-        <div class="name">AGE</div>
-        <div class="placeholder"><%=result[0].age%></div>
-    </div>
-    <div class="BOX">
-        <div class="name">GENDER</div>
-        <div class="placeholder"><%=result[0].gender%></div>
-    </div>
-    <div class="BOX">
-        <div class="name">ADDRESS</div>
-        <div class="placeholder"><%=result[0].address%></div>
-    </div>
-    <div class="BOX">
-        <div class="name">MOBILE</div>
-        <div class="placeholder"><%=result[0].mobile%></div>
-    </div>
+    <h2>hello ...<%= result[0].name %></h2>
 
+    <div class="BOX">
+      <div class="name">NAME</div>
+      <div class="placeholder"><%=result[0].name%></div>
+    </div>
+    <div class="BOX">
+      <div class="name">EMAIL</div>
+      <div class="placeholder"><%=result[0].email%></div>
+    </div>
+    <div class="BOX">
+      <div class="name">AGE</div>
+      <div class="placeholder"><%=result[0].age%></div>
+    </div>
+    <div class="BOX">
+      <div class="name">GENDER</div>
+      <div class="placeholder"><%=result[0].gender%></div>
+    </div>
+    <div class="BOX">
+      <div class="name">ADDRESS</div>
+      <div class="placeholder"><%=result[0].address%></div>
+    </div>
+    <div class="BOX">
+      <div class="name">MOBILE</div>
+      <div class="placeholder"><%=result[0].mobile%></div>
+    </div>
 
     <form action="/update/<%= result[0].name%>">
-        <button class="edit-btn">EDIT</button>
+      <button class="edit-btn">EDIT</button>
     </form>
-
-    
-</body>
+  </body>
 </html>

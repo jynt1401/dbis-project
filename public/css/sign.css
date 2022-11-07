@@ -4,10 +4,14 @@
 }
 .backvdo{
     position: absolute;
+    width: 100%;
+    height: 100%;
     right: 0;
     bottom: 0;
     z-index: -1;
+    object-fit: cover;
 }
+
 
 input{
     border-radius: 50rem;
@@ -15,6 +19,7 @@ input{
     width: 13rem;
     margin-left: 1rem;
     border: none;
+    padding-left: 3%;
 }
 
 .main {
@@ -27,17 +32,38 @@ input{
 }
 
 .form{
-    
-    position: relative;
+    display:flexbox;
+    justify-content: center;
     max-width: 430px;
-    width: 100%;
-    height: 23rem;
+    min-width: 150px;
+    min-height: 40vh;
+    width: 50%;
     background: rgba(255, 255, 255, 0.502);
     border-radius: 1.5rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 3rem 6rem;
+    /* overflow: hidden; */
+    margin-top: 10vh;
+    margin-left: 25%;
+    margin-right: 25%;
 }
+
+.form-elem{
+    width: 100%;
+}
+
+.num1{
+    display: inline-flex;
+    width: 40%;
+    margin-left: 5%;
+    text-align: right;
+}
+
+.num2{
+    display: inline-flex;
+    width: 50%;
+    margin-right: 5%;
+}
+
 .title{
    margin-top: 2rem;
     text-align: center;
@@ -63,27 +89,16 @@ input{
 
 }
 
-.f{
-    display: flex;
-    
-    font-weight: bold;
-    width: 50%;
-    font-size: 5em;
-    font-family: Arial, sans-serif;
-    margin-top: 5rem;
-    margin-left: 5rem;
-    color: rgb(255, 255, 255);
-}
 
 
 .sign-in-btn{
-    margin: 4rem 3rem;
-    margin-bottom: 1rem;
+    margin: 5% 5% 5% 5%;
+    margin-bottom: 5%;
     border-radius: 1rem;
     
     height: 2.5rem;
     border: none;
-    width: 22rem;
+    width: 90%;
     font-size: 1.4rem;
     font-weight: bold;
     font-family: Arial, sans-serif;
@@ -93,13 +108,13 @@ input{
 }
 
 .sign-in-btn:hover{
-    margin: 4rem 3rem;
-    margin-bottom: 1rem;
+    margin: 5% 5% 5% 5%;
+    margin-bottom: 5%;
     border-radius: 1rem;
     
     height: 2.5rem;
     border: none;
-    width: 22rem;
+    width: 90%;
     font-size: 1.4rem;
     font-weight: bold;
     font-family: Arial, sans-serif;
@@ -108,4 +123,6 @@ input{
     cursor: pointer;
 }
 
-
+header {
+    position: sticky;
+}

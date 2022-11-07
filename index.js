@@ -1,503 +1,443 @@
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser')
-const express=require('express');
-const mysql=require('mysql');
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const express = require("express");
+const mysql = require("mysql");
 const app = express();
-const path = require('path');
+const path = require("path");
 const session = require("express-session");
-const { rawListeners } = require('process');
+const { rawListeners } = require("process");
 
-
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
-    session({
-        key: "user",
-        secret: "jayant",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            expires: 24 * 60 * 60 * 1000,
-        },
-    })
-)
+  session({
+    key: "user",
+    secret: "jayant",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 24 * 60 * 60 * 1000,
+    },
+  })
+);
 let currUser;
-app.use((req,res,next)=>{
-    res.locals.currUser=req.session.user;
-    next();
-})
+app.use((req, res, next) => {
+  res.locals.currUser = req.session.user;
+  res.locals.errMsg = req.session.err;
+  next();
+});
 
-app.set('view engine','ejs');
+app.set("view engine", "ejs");
 
 //create connection
-const db=mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'password',
-    database:'minor_proj'
-
+const db = mysql.createConnection({
+  host: "127.0.0.1",
+  user: "root",
+  password: "",
+  database: "minor_proj",
 });
-
 
 //connect
-db.connect((err)=>{
-    if(err){
-        throw err;
-    }
-    console.log('mysql connected')
-
+db.connect((err) => {
+  if (err) {
+    throw err;
+  }
+  console.log("mysql connected");
 });
 
-
-
-
-
-// //insert
-
-// app.get('/',(req,res)=>{
-   
-//     let v={id:'3',name:'jay',age:'20'};
-//     let sql='insert into information SET ?';
-//     let query=db.query(sql,v,(err,result)=>{
-//         if(err){
-//             throw err;
-//         }
-//         console.log(result)
-//         res.send('added row');
-
-//     });
-// });
-
-
-
-// //select
-
-// app.get('/',(req,res)=>{
-//     res.render('sign.ejs')
-//     let sql='select * from sign_in';
-//     let query=db.query(sql,(err,result)=>{
-//         if(err){
-//             throw err;
-//         }
-//         console.log(result)
-//         res.send('values......');
-
-//     });
-// });
-
-
-app.get('/',(req,res)=>{
-        res.render('sign.ejs', {errMessage: ""})
-    
-    
+app.get("/", (req, res) => {
+  res.render("sign.ejs", { errMessage: "" });
+});
+app.get("/home", (req, res) => {
+  res.render("home.ejs", { errMessage: "" });
 });
 
-app.post('/sign_in', (req, res)=>{
-    console.log(req.body);
-    // res.render('sign.ejs');
-    let username = req.body.username;
-    let password = req.body.password;
+app.post("/sign_in", (req, res) => {
+  console.log(req.body);
+  // res.render('sign.ejs');
+  let username = req.body.username;
+  let password = req.body.password;
 
-    if(username==="admin" && password==="admin"){
-        res.render("admin.ejs");
-    }
-    else{
-        db.query(`SELECT x.* , y.* FROM (select * from sign_in WHERE username = ? AND pswd = ?) as x, (select * from product) as y`,[username, password], (err, result)=>{
-            console.log(result);
-            if(err) console.log(err);
-            else {
-                console.log(result);
-                if(result.length===0){
-                    res.render("sign.ejs", {errMessage: "No such user is found!!!"});
-                } else{
-                    req.session.user = result[0].username;
-                    console.log(req.session.user);
-                    res.render("home.ejs", {result});
-                }
-                
-            }
-        })
-    }
-    // var _name= req.query.username
-    // var psw=req.query.pswd
-    
-    // let sql=`select * from sign_in where username='${_name}'`;
-    // let insert_sql=`insert into user (name) values ('${_name}')`;
-    // let find_sql=`select name from user where name='${_name}'`;
-    // let v={name:_name}
-
-    
-    
-
-
-    // db.query(sql,(err,result)=>{
-    //     if(err){
-    //         throw err;
-    //     }
-    //     // console.log(result[0].pswd)
-    //     if(result.length==0){
-    //         res.render('sign.ejs')
-    //     }
-    //     else if(result[0].username=="admin" && result[0].pswd=="admin"){
-    //         res.render('admin.ejs')
-    //     }
-    //     else if(result[0].pswd==psw)
-    //     {
-    //         res.render('home.ejs',{result});
-    //     }
-    //     else{
-    //         res.render('sign.ejs',{result})
-    //             }
-    // })
-})
-
-app.get('/logout', (req, res)=>{
-res.render('sign.ejs')
-    
-})
-
-app.get('/profile/:username/', (req, res)=>{
-
-    var {username}= req.params;
-    
-    
-   
-    // let insert_sql=`insert into user (name) values ('${username}')`;
-    // let find_sql=`select name from user where name='${username}'`;
-    
-    // let v={name:username}
-
-    // db.query("SELECT name from user ",(err,result)=>{
-    //     if(err){
-    //         throw err;
-    //     }
-    //     // console.log(result[0].pswd)
-    //     if(result.length==0)
-    //     {
-    //         db.query(insert_sql, (err,result)=>{
-    //             if(err){
-    //                 throw err;
-    //             }
-    //             console.log(v.name);
-    //             console.log("vlaue inserted")
-                
-        
-    //         });
-    //     }
-        
-    // })
-
-    db.query("SELECT * FROM user WHERE name = ?", [username],(err,result)=>{
-        if(err){
-            console.log(err);
-        } else {
-            res.render('profile.ejs', {result})
+  if (username === "admin" && password === "admin") {
+    db.query(
+      ` select * from product p
+        join category c
+        on c.catid=p.cid group by pid`,
+      (err, result) => {
+        if (err) {
+          throw err;
         }
-        
-    
-    
-})
-    
-})
-
-
-
-
-app.get('/update/:username', (req, res)=>{
-    var {username}= req.params;
-    res.render('profile_update.ejs',{username})
-
-    // var _email=req.query.email;
-    // var _age=req.query.age;
-    // var _gender=req.query.gender;
-    // var _address=req.query.address;
-    // var _mobile=req.query.mobile;
-    // var _alt_moblie=req.query.alt_moblie;
-
-    // let v={email:_email,age:_age,gender:_gender,address:_address,mobile:_mobile,alt_moblie:_alt_moblie};
-
-    // let sql=`update user set email='${_email}' age=${_age} gender='${_gender}' address='${_address}' moblie=${_mobile} alt_mobile=${_alt_moblie} where name='${req.params.username}';`
-    // let query=db.query(sql,v, (err,result)=>{
-    //     if(err){
-    //         throw err;
-    //     }
-        
-    //     console.log("vlaue inserted")
-    //     res.send('profile.ejs')
-        
-
-    // });
-
-
-
-    
-})
-app.post('/update/:name', (req, res)=>{
-    var {name}= req.params;
-    // res.render('profile_update.ejs',{result:[{username:username,pswd:password}]})
-
-    var _email=req.body.email;
-    var _age=req.body.age;
-    var _gender=req.body.gender;
-    var _address=req.body.address;
-    var _mobile=req.body.mobile;
-
-    db.query("UPDATE user SET email = ?, age = ?, gender = ?, address = ?, mobile = ? WHERE name = ?", [_email, _age, _gender, _address, _mobile, name], (err, result)=>{
-        if(err) console.log(err);
+        console.log(result);
+        res.render("admin.ejs", { result });
+      }
+    );
+  } else {
+    db.query(
+      `select * from sign_in WHERE username = ? AND pswd = ?`,
+      [username, password],
+      (err, result) => {
+        console.log(result);
+        if (err) console.log(err);
         else {
-            res.redirect(`/profile/${name}`);
+          console.log(result);
+          if (result.length === 0) {
+            res.render("createprofile.ejs", { result });
+          } else {
+            db.query(
+              `select * from product p
+            join category c
+            on c.catid=p.cid group by pid;`,
+              (err, result1) => {
+                req.session.user = result[0];
+                console.log(req.session.user);
+                res.render("home.ejs", { result, result1 });
+              }
+            );
+          }
         }
-    })
-    
-    // let sql=`update user set email='${_email}' , age=${_age}, gender='${_gender}', address='${_address}', mobile=${_mobile} where name='${username}'`
-    // db.query(sql, (err,result)=>{
-    //     if(err){
-    //         throw err;
-    //     }
-        
-    //     console.log("vlaue inserted")
-    //     res.render('profile.ejs', {result:[{name:name,email:_email,age:_age,gender:_gender,address:_address,mobile:_mobile}]})
-        
+      }
+    );
+  }
+});
 
-    // });
+app.post("/createprofile", (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
+  var email = req.body.email;
+  var age = req.body.age;
+  var gender = req.body.gender;
+  var address = req.body.address;
+  var mobile = req.body.mobile;
 
+  db.query(
+    `insert into sign_in(username,pswd) values(?, ?)`,
+    [username, password],
+    (err, result) => {
+      if (err) console.log(err);
+      else {
+        db.query(
+          `insert into user(name,email,age,gender,address,mobile) values(?, ?, ?, ?, ?, ?);`,
+          [username, email, age, gender, address, mobile],
+          (err, results) => {
+            if (err) console.log(err);
+            else console.log(results);
 
+            res.render("sign.ejs", { errMessage: {} });
+          }
+        );
+      }
+    }
+  );
+});
 
-    
-})
+app.get("/logout", (req, res) => {
+  res.render("sign.ejs");
+});
 
-// app.get('/updated',(req,res)=>{
-    
-//     res.render('profile.ejs')
-// })
+app.get("/profile/:username/", (req, res) => {
+  var { username } = req.params;
+  db.query("SELECT * FROM user WHERE name = ?", [username], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("profile.ejs", { result });
+    }
+  });
+});
 
+app.get("/update/:username", (req, res) => {
+  var { username } = req.params;
+  res.render("profile_update.ejs", { username });
+});
+app.post("/update/:name", (req, res) => {
+  var { name } = req.params;
 
+  var _email = req.body.email;
+  var _age = req.body.age;
+  var _gender = req.body.gender;
+  var _address = req.body.address;
+  var _mobile = req.body.mobile;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  db.query(
+    "UPDATE user SET email = ?, age = ?, gender = ?, address = ?, mobile = ? WHERE name = ?",
+    [_email, _age, _gender, _address, _mobile, name],
+    (err, result) => {
+      if (err) console.log(err);
+      else {
+        res.redirect(`/profile/${name}`);
+      }
+    }
+  );
+});
 
 // admin section.........................
 
-app.get('/add_shoes',(req,res)=>{
-    res.render('add_shoes.ejs')
-});
-app.get('/inventory',(req,res)=>{
-    let sql=`select * from product`;
-
-    db.query(sql, (err,result)=>{
-        if(err){
-            throw err;
-        }
-        console.log(result);
-       
-        res.render('inventory.ejs',{result})
-        
-
-    });
-
-
-    
-
-
-});
-
-
-app.get('/add_shoes_done', (req, res)=>{
-    var name=req.query.name;
-    var company=req.query.company;
-    var cost=req.query.cost;
-    var size=req.query.size;
-    var stock=req.query.stock;
-    var category=req.query.category;
-    var img_1=req.query.img_1;
-    var img_2=req.query.img_2;
-    var img_3=req.query.img_3;
-
-    let insert_sql=`insert into product (name,company,cost,size,stock,img_1,img_2,img_3,category) values ('${name}','${company}',${cost},${size},${stock},'${img_1}','${img_2}','${img_3}','${category}');`;
-    
-
-    db.query(insert_sql,(err,result)=>{
-        if(err){
-            throw err;
-        } 
+app.get("/add_shoes", (req, res) => {
+  db.query(
+    ` select * from product p
+  join category c
+  on c.catid=p.cid group by p.pid`,
+    (err, result) => {
+      console.log(result[0]);
+      res.render("add_shoes.ejs", { result });
     }
-    )  
-    
-    res.render('admin.ejs')
-    
-  
-})
-app.get('/update_shoes', (req, res)=>{
-    var shoename= req.query.name
+  );
+});
 
-    let sql=`select * from product where name='${shoename}'`;
-    db.query(sql, (err,result)=>{
-        if(err){
-            throw err;
-        }
-        
-       
-        res.render('update_shoes.ejs', {result})
-        
+app.get("/admin", (req, res) => {
+  db.query(
+    ` select * from product p
+    join category c
+    on c.catid=p.cid group by p.pid`,
+    (err, result) => {
+      if (err) console.log(err);
+      else res.render("admin.ejs", { result });
+    }
+  );
+});
 
-    });
-   
-    
-    
-  
-})
+app.post("/add_shoes_done", (req, res) => {
+  var name = req.body.name;
+  var color = req.body.color;
+  var cost = req.body.cost;
+  var size = req.body.size;
+  var stock = req.body.stock;
+  var cid = req.body.cid;
+  var des = req.body.des;
 
+  db.query(
+    "INSERT INTO product (pid,name,size,color,cost,stock,des,cid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    [pid, name, size, color, cost, stock, des, cid],
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+    }
+  );
 
-app.post('/update_shoes_finally/:stock/:price', (req, res)=>{
-    
-    let stock= req.params.stock;
-    // var prise=res.query.cost;
+  res.redirect("/admin");
+});
+app.get("/update_shoes", (req, res) => {
+  var shoename = req.query.name;
 
-    let sql=`update table product set stock='${stock}' where name='${name}'`;
+  let sql = `select * from product where name='${shoename}'`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      throw err;
+    }
 
-    
-    
+    res.render("update_shoes.ejs", { result });
+  });
+});
 
-   
-    db.query(sql, (err,result)=>{
-        if(err){
-            throw err;
-        }
-        
+app.post("/update_shoes_finally/:stock/:price", (req, res) => {
+  let stock = req.params.stock;
+  // var prise=res.query.cost;
 
-        
-       
-        res.redirect('admin.ejs')
-        
+  let sql = `update table product set stock='${stock}' where name='${name}'`;
 
-    });
-   
-    
-    
-  
-})
+  db.query(sql, (err, result) => {
+    if (err) {
+      throw err;
+    }
 
-app.get('/shop/:name', (req, res)=>{
+    res.redirect("admin.ejs");
+  });
+});
 
-    let shoe_name= req.params.name;
-    let username=req.params.username;
-    let userid=req.session.user;
-    
-   
-    let shop_sql=`SELECT x.* , y.*,z.* FROM 
+app.get("/shop/:name", (req, res) => {
+  let shoe_name = req.params.name;
+  let username = req.params.username;
+  let userid = req.session.user;
+
+  let shop_sql = `SELECT x.* , y.*,z.* FROM 
     (select * from sign_in) as x,
     (select * from reviews) as y,
     (select * from product) as z
     
     where y.productname='${shoe_name}' and y.productname=z.name and x.username='${req.session.user}'`;
 
-    console.log(req.session.user)
-    console.log(req.session.user)
-    console.log(req.session.user)
-    console.log(req.session.user)
-    console.log(req.session.user)
-    console.log(req.session.user)
-    console.log(req.session.user)
-   
-    db.query(shop_sql, (err,result)=>{
-        if(err){
-            throw err;
-        }
-        console.log(userid)
-        console.log(result);
-        res.render('shop.ejs', {result})
-        
+  console.log(req.session.user);
+  console.log(req.session.user);
+  console.log(req.session.user);
+  console.log(req.session.user);
+  console.log(req.session.user);
+  console.log(req.session.user);
+  console.log(req.session.user);
 
-    });
-   
-    
-    
-  
-})
-
-
-
-app.get('/cart/:name', (req, res)=>{
-    var quantity= req.query.quantity;
-    let shoe_name= req.params.name;
-
-    let cart_sql=`insert into cart(cust_name,productname,quantity)
-    values("${req.session.user}","${shoe_name}",${quantity});`
-
-    db.query(cart_sql, (err,result)=>{
-        if(err){
-            throw err;
-        }
-        
-        res.render('cart.ejs', {result})
-        
-
-    });
-   
-    
-    
-  
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen('3000',()=>{
-    console.log('running port 3000');
-
+  db.query(shop_sql, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    console.log(userid);
+    console.log(result);
+    res.render("shop.ejs", { result });
+  });
 });
 
+app.get("/cart/:name", (req, res) => {
+  var quantity = req.query.quantity;
+  let shoe_name = req.params.name;
+
+  let cart_sql = `insert into cart(cust_name,productname,quantity)
+    values("${req.session.user}","${shoe_name}",${quantity});`;
+
+  db.query(cart_sql, (err, result) => {
+    if (err) {
+      throw err;
+    }
+
+    res.render("cart.ejs", { result });
+  });
+});
+
+app.get("/shoedetails/:pid", (req, res) => {
+  var { pid } = req.params;
+
+  db.query(
+    `select * from product p
+    join category c
+    on c.catid=p.cid where pid=${pid} group by pid;`,
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      db.query(
+        `select * from product p
+    join category c
+    on c.catid=p.cid where pid=${pid} group by color;`,
+        (err, result1) => {
+          if (err) {
+            throw err;
+          }
+          db.query(
+            `select * from product p
+        join category c
+        on c.catid=p.cid where pid=${pid} group by size;`,
+            (err, result2) => {
+              if (err) {
+                throw err;
+              }
+              res.render("ADMINshoedetails.ejs", { result, result1, result2 });
+            }
+          );
+        }
+      );
+    }
+  );
+});
+
+app.get("/ushoedetails/:pid/:username", (req, res) => {
+  var { pid } = req.params;
+  var { username } = req.params;
+
+  db.query(
+    `select * from product p
+    join category c
+    on c.catid=p.cid where pid=${pid} group by pid;`,
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      db.query(
+        `select * from product p
+      join category c
+      on c.catid=p.cid where pid=${pid} group by color;`,
+        (err, result1) => {
+          if (err) {
+            throw err;
+          }
+          db.query(
+            `select * from product p
+          join category c
+          on c.catid=p.cid where pid=${pid} group by size;`,
+            (err, result2) => {
+              if (err) {
+                throw err;
+              }
+              res.render("CUSTOMERshoedetails.ejs", {
+                result,
+                result1,
+                result2,
+                username,
+              });
+            }
+          );
+        }
+      );
+    }
+  );
+});
+
+app.post("/buy/:pid/:username", (req, res) => {
+  var { pid } = req.params;
+  var { username } = req.params;
+
+  var color = req.body.color;
+  var size = req.body.size;
+  var quantity = req.body.quantity;
+
+  var uid;
+  var oid;
+
+  db.query(
+    `select id from sign_in where username=?`,
+    [username],
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      uid = result[0].id;
+    }
+  );
+
+  db.query(
+    `select * from product where pid=? and color=? and size=?`,
+    [pid, color, size],
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      if (quantity > result[0].stock) {
+        req.session.err = `for ${color}:${size}: select quantity less than ${result[0].stock}`;
+        res.redirect(`/ushoedetails/${pid}/${username}`);
+      } else {
+        var total = result[0].cost * quantity;
+        var stockLeft = result[0].stock - quantity;
+        db.query(
+          `insert into orders(uid,pid,color,size,cost,quantity,total) 
+        values(?,?,?,?,?,?,?)`,
+          [uid, pid, color, size, result[0].cost, quantity, total],
+          (err, result1) => {
+            if (err) {
+              console.log("blank");
+            } else {
+              db.query(
+                `update product set stock=? where pid=? and color=? and size=?`,
+                [stockLeft, pid, color, size],
+                (err, result2) => {
+                  if (err) {
+                    console.log("blank1");
+                  } else {
+                    db.query(
+                      `select * from orders where uid=?`,
+                      [uid],
+                      (err, result3) => {
+                        res.render("orders.ejs", { result3, username });
+                      }
+                    );
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.listen("3000", () => {
+  console.log("running port 3000");
+});

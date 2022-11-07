@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>shoes</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>edit your form</h1>
-    
-        <form action="/update/<%= username%>" method="post">
-        <div class="greet">
-           <div class="name">name</div>
-           <div class="name_"><%=username%></div>
 
-        </div>
-        <div class="inout">
-            email:<input type="email" name="email">
+    <form action="/update/<%= username%>" method="post">
+      <div class="greet">
+        <div class="name">name</div>
+        <div class="name_"><%=username%></div>
+      </div>
+      <div class="inout">email:<input type="email" name="email" /></div>
+      <div class="inout">age:<input type="text" name="age" /></div>
+      <div class="inout">gender:<input type="text" name="gender" /></div>
+      <div class="inout">address:<input type="text" name="address" /></div>
+      <div class="inout">mobile:<input type="text" name="mobile" /></div>
 
-        </div>
-        <div class="inout">
-            age:<input type="text" name="age">
-
-        </div>
-        <div class="inout">
-            gender:<input type="text" name="gender">
-
-        </div>
-        <div class="inout">
-            address:<input type="text" name="address">
-
-        </div>
-        <div class="inout">
-            mobile:<input type="text" name="mobile">
-
-        </div>
-        
-
-        <button class="done-btn">DONE</button>
+      <button class="done-btn">DONE</button>
     </form>
-    
-</body>
+  </body>
 </html>
