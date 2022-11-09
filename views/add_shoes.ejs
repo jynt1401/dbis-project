@@ -929,7 +929,7 @@
             <h3>Admin</h3>
           </li>
           <li>
-            <a href="/add_shoes"
+            <a href="#0"
               ><svg>
                 <use xlink:href="#pages"></use>
               </svg>
@@ -1046,26 +1046,32 @@
         </div>
       </section>
       <section class="grid">
-        <h1>we will add shoes</h1>
-
+        
         <form action="/add_shoes_done" method="post">
           <div class="inout">
-            Name:<input list="name" name="name"/><datalist id="name">
+            Name:<input list="name" name="name" /><datalist id="name">
               <% for(let item of result){ %>
               <option value="<%=item.name%>"><%=item.name%></option>
               <%}%>
             </datalist>
           </div>
-          <div class="inout">Cost:<input type="text" name="cost" /></div>
-          <div class="inout">Size:<input type="text" name="size" /></div>
-          <div class="inout">Category:<select id="size" name="size">
-            <% for(let item of result1){ %>
+          <div class="inout">Cost:<input type="number" name="cost" /></div>
+          <div class="inout">
+            Size:<input type="number" name="size" min="6" max="12" />
+          </div>
+          <div class="inout">
+            Category:
+            <select id="catid" name="catid">
+              <% for(let item1 of result1){ %>
 
-            <option value="<%=item.%>"><%=item2.size%></option>
+              <option value="<%=item1.catid%>">
+                <%=item1.gender.toUpperCase()%>'S <%=item1.cat.toUpperCase()%>
+              </option>
 
-            <%}%>
-          </select></div>
-          <div class="inout">Stock:<input type="text" name="stock" /></div>
+              <%}%>
+            </select>
+          </div>
+          <div class="inout">Stock:<input type="number" name="stock" /></div>
           <div class="inout">Color:<input type="text" name="color" /></div>
           <div class="inout">
             Description:<input type="textarea" name="des" />
@@ -1073,6 +1079,7 @@
 
           <button class="done-btn">DONE</button>
         </form>
+        
       </section>
     </section>
 

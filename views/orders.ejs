@@ -734,7 +734,7 @@
               <svg>
                 <use xlink:href="#pages"></use>
               </svg>
-              <span>Pages</span>
+              <span>Orders</span>
             </a>
           </li>
           <li>
@@ -838,16 +838,15 @@
           </div>
         </div>
       </section>
-      <section class="grid">
-        <article>
-          <article class="product-card">
+      
+
             <table></table>
               <caption>
                 Statement Summary
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">username</th>
+                  
                   <th scope="col">orderdate</th>
                   <th scope="col">orderid</th>
                   <th scope="col">pid</th>
@@ -861,7 +860,6 @@
               <tbody>
                 <% for(let item of result3){ %>
                 <tr>
-                  <td data-label="uid"><%=username%></td>
                   <td data-label="Period"><%=item.orderdate%></td>
                   <td data-label="Account"><%=item.oid%></td>
                   <td data-label="Due Date"><%=item.pid%></td>
@@ -874,9 +872,7 @@
                 <%}%>
               </tbody>
             </table>
-          </article>
-        </article>
-      </section>
+      
       <footer class="page-footer">
         <span>made by </span>
         <a href="https://georgemartsoukos.com/" target="_blank">

@@ -1045,8 +1045,14 @@
           </div>
         </div>
       </section>
+
+      <% for(let item1 of result1){ %>
+      <h2>
+        #<%=item1.catid%>: <%=item1.gender.toUpperCase()%>'S
+        <%=item1.cat.toUpperCase()%>
+      </h2>
       <section class="grid">
-        <% for(let item of result){ %>
+        <% for(let item of result){ %> <%if (item1.catid==item.cid){%>
         <article class="product-card">
           <div class="product-tumb">
             <img
@@ -1075,8 +1081,10 @@
             </div>
           </div>
         </article>
-        <%}%>
+
+        <%}%> <%}%>
       </section>
+      <%}%>
     </section>
 
     <!-- mera maal -->

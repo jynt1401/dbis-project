@@ -4,8 +4,82 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>shoes</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
     <style>
+      .button {
+        font-size: 1em;
+        padding: 10px;
+
+        color: #000;
+        border: 0px solid #000;
+        border-radius: 20px/20px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+      }
+      .button:hover {
+        background: #06d85f;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+        z-index: -999;
+      }
+      .overlay:target {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .popup {
+        margin: 70px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 50%;
+        position: relative;
+        transition: all 1s ease-in-out;
+        z-index: 999;
+      }
+
+      .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+      }
+      .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+      }
+      .popup .close:hover {
+        color: #06d85f;
+      }
+      .popup .content {
+        max-height: 30%;
+        overflow: auto;
+      }
+
+      /* codepen */
       /* RESET RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
       @import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
@@ -300,7 +374,7 @@
       .page-content .grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 30px;
+        grid-column-gap: 30px;
       }
 
       .page-content .grid > article {
@@ -311,10 +385,10 @@
         box-shadow: var(--box-shadow);
       }
 
-      .page-content .grid > article:first-child,
+      /* .page-content .grid > article:first-child,
       .page-content .grid > article:last-child {
         grid-column: 1 / -1;
-      }
+      } */
 
       /* MQ RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -568,9 +642,133 @@
       .page-footer a {
         margin-left: 4px;
       }
+
+      /* product card */
+      @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      .product-card {
+        position: relative;
+        box-shadow: 0 2px 7px #dfdfdf;
+        margin: 3% auto;
+        background: #fafafa;
+      }
+
+      .badge {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 700;
+        background: red;
+        color: #fff;
+        padding: 3px 10px;
+      }
+
+      .product-tumb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        padding: 50px;
+        background: #f0f0f0;
+      }
+
+      .product-tumb img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .product-details {
+        padding: 30px;
+      }
+
+      .product-catagory {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ccc;
+        margin-bottom: 18px;
+      }
+
+      .product-details h4 a {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 18px;
+        text-transform: uppercase;
+        color: #363636;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .product-details h4 a:hover {
+        color: #fbb72c;
+      }
+
+      .product-details p {
+        font-size: 15px;
+        line-height: 22px;
+        margin-bottom: 18px;
+        color: #999;
+      }
+
+      .product-bottom-details {
+        overflow: hidden;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+      }
+
+      .product-bottom-details div {
+        float: left;
+        width: 50%;
+      }
+
+      .product-price {
+        font-size: 18px;
+        color: #fbb72c;
+        font-weight: 600;
+      }
+
+      .product-price small {
+        font-size: 80%;
+        font-weight: 400;
+        text-decoration: line-through;
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      .product-links {
+        text-align: right;
+      }
+
+      .product-links a {
+        display: inline-block;
+        margin-left: 5px;
+        color: #e1e1e1;
+        transition: 0.3s;
+        font-size: 17px;
+      }
+
+      .product-links a:hover {
+        color: #fbb72c;
+      }
     </style>
   </head>
   <body>
+    <!-- svgs -->
     <svg style="display: none">
       <symbol id="logo" viewBox="0 0 140 59">
         <g>
@@ -709,9 +907,10 @@
         />
       </symbol>
     </svg>
+    <!-- start of code -->
     <header class="page-header">
       <nav>
-        <a href="#0" aria-label="forecastr logo" class="logo">
+        <a href="/admin" aria-label="forecastr logo" class="logo">
           <svg width="140" height="49">
             <use xlink:href="#logo"></use>
           </svg>
@@ -730,15 +929,15 @@
             <h3>Admin</h3>
           </li>
           <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#pages"></use>
+            <a href="#0"
+              ><svg>
+                <use xlink:href="/admin"></use>
               </svg>
-              <span>Pages</span>
-            </a>
+              <span>Add shoes</span></a
+            >
           </li>
           <li>
-            <a href="#0">
+            <a href="/users">
               <svg>
                 <use xlink:href="#users"></use>
               </svg>
@@ -754,11 +953,11 @@
             </a>
           </li>
           <li>
-            <a href="#0">
+            <a href="/admin">
               <svg>
                 <use xlink:href="#collection"></use>
               </svg>
-              <span>Collection</span>
+              <span>Inventory</span>
             </a>
           </li>
           <li>
@@ -828,83 +1027,67 @@
     </header>
     <section class="page-content">
       <section class="search-and-user">
-        <a class="admin-profile" href="/profile/<%=result[0].username%>">
-          <span class="greeting"><%=username%></span>
+        <form>
+          <input type="search" placeholder="Search Pages..." />
+          <button type="submit" aria-label="submit form">
+            <svg aria-hidden="true">
+              <use xlink:href="#search"></use>
+            </svg>
+          </button>
+        </form>
+        <div class="admin-profile">
+          <span class="greeting">Hello admin</span>
           <div class="notifications">
             <span class="badge">1</span>
             <svg>
               <use xlink:href="#users"></use>
             </svg>
           </div>
-        </a>
+        </div>
       </section>
       <section class="grid">
-        <article>
-          <article class="product-card">
-            <% for(let item of result){ %>
-            <form action="/buy/<%=item.pid%>/<%=username%>" method="post">
-              <div class="product-tumb">
-                <img
-                  src="https://i.imgur.com/xdbHo4E.png"
-                  alt=""
-                  style="height: 20%; width: 20%; min-width: 40px"
-                />
-              </div>
-              <div class="product-details">
-                <span class="product-catagory"
-                  ><%=item.gender%>, <%=item.cat%></span
-                >
-                <h4><%=item.name%></h4>
-                <p><%=item.des%></p>
-                <div class="product-bottom-details">
-                  <div class="product-price">$ <%=item.cost%></div>
-                </div>
-              </div>
-              <label for="colors">Choose a color:</label>
-              <select id="colors" name="color">
-                <% for(let item1 of result1){ %>
+        <%=existsAlready%> <% for (let item of result){ %>
+        <form
+          action="/update_shoe/<%=item.pid%>/<%=item.color%>/<%=item.size%>"
+          method="post"
+        >
+          <div class="inout">Pid: <%=item.pid%></div>
+          <div class="inout">Name: <%=item.name%></div>
+          <div class="inout">Color : <%=item.color%></div>
+          <div class="inout">Size: <%=item.size%></div>
+          <div class="inout">Size: <%=item.size%></div>
+          <div class="inout">
+            Category:<%=item.gender.toUpperCase()%>'S
+            <%=item.cat.toUpperCase()%>
+          </div>
 
-                <option value="<%=item1.color%>"><%=item1.color%></option>
+          
+          <div class="inout">
+            Cost:<input type="number" name="cost" min="100" />
+          </div>
+          <div class="inout">
+            Stock:<input type="number" name="stock" min="10" />
+          </div>
+          <div class="inout">
+            Description:<input type="textarea" name="des" />
+          </div>
 
-                <%}%>
-              </select>
-              <br /><label for="size">Choose a size:</label>
-
-              <select id="size" name="size">
-                <% for(let item2 of result2){ %>
-
-                <option value="<%=item2.size%>"><%=item2.size%></option>
-
-                <%}%>
-              </select>
-              <label for="quantity"> Quantity: </label>
-              <input
-                type="number"
-                name="quantity"
-                id="quantity"
-                value="quantity"
-                min="1"
-                max="5"
-              />
-
-              <button>buy</button>
-            </form>
-            <%}%> <%=errMsg%>
-          </article>
-        </article>
+          <button class="done-btn">UPDATE</button>
+        </form>
+        <%}%>
       </section>
-      <footer class="page-footer">
-        <span>made by </span>
-        <a href="https://georgemartsoukos.com/" target="_blank">
-          <img
-            width="24"
-            height="24"
-            src="https://assets.codepen.io/162656/george-martsoukos-small-logo.svg"
-            alt="George Martsoukos logo"
-          />
-        </a>
-      </footer>
     </section>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
 
     <script>
       const html = document.documentElement;
@@ -971,6 +1154,12 @@
           switchLabelText.textContent = "Dark";
           localStorage.setItem("dark-mode", "true");
         }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $(".modal-trigger").leanModal();
       });
     </script>
   </body>

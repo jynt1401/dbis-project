@@ -68,8 +68,14 @@ app.post("/sign_in", (req, res) => {
         if (err) {
           throw err;
         }
-        console.log(result);
-        res.render("admin.ejs", { result });
+        db.query(
+          `select * from category where catid in (select cid from product p
+          join category c
+          on c.catid=p.cid group by p.cid) order by catid;`,
+          (err, result1) => {
+            res.render("admin.ejs", { result, result1 });
+          }
+        );
       }
     );
   } else {
@@ -85,13 +91,21 @@ app.post("/sign_in", (req, res) => {
             res.render("createprofile.ejs", { result });
           } else {
             db.query(
-              `select * from product p
-            join category c
-            on c.catid=p.cid group by pid;`,
-              (err, result1) => {
-                req.session.user = result[0];
-                console.log(req.session.user);
-                res.render("home.ejs", { result, result1 });
+              ` select * from product p
+                join category c
+                on c.catid=p.cid group by pid`,
+              (err, result2) => {
+                if (err) {
+                  throw err;
+                }
+                db.query(
+                  `select * from category where catid in (select cid from product p
+                  join category c
+                  on c.catid=p.cid group by p.cid) order by catid`,
+                  (err, result1) => {
+                    res.render("home.ejs", { result2, result1, result });
+                  }
+                );
               }
             );
           }
@@ -132,7 +146,10 @@ app.post("/createprofile", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  res.render("sign.ejs");
+  req.session.destroy();
+  console.log("Logged out");
+  // console.log(req.session.user);
+  res.render("sign.ejs", { errMessage: "" });
 });
 
 app.get("/profile/:username/", (req, res) => {
@@ -179,8 +196,13 @@ app.get("/add_shoes", (req, res) => {
   join category c
   on c.catid=p.cid group by p.pid`,
     (err, result) => {
-      console.log(result[0]);
-      res.render("add_shoes.ejs", { result });
+      if (err) {
+        console.log("error");
+      } else {
+        db.query(`select * from category`, (err, result1) => {
+          res.render("add_shoes.ejs", { result, result1 });
+        });
+      }
     }
   );
 });
@@ -188,11 +210,20 @@ app.get("/add_shoes", (req, res) => {
 app.get("/admin", (req, res) => {
   db.query(
     ` select * from product p
-    join category c
-    on c.catid=p.cid group by p.pid`,
+      join category c
+      on c.catid=p.cid group by pid`,
     (err, result) => {
-      if (err) console.log(err);
-      else res.render("admin.ejs", { result });
+      if (err) {
+        throw err;
+      }
+      db.query(
+        `select * from category where catid in (select cid from product p
+        join category c
+        on c.catid=p.cid group by p.cid) order by catid;`,
+        (err, result1) => {
+          res.render("admin.ejs", { result, result1 });
+        }
+      );
     }
   );
 });
@@ -203,102 +234,102 @@ app.post("/add_shoes_done", (req, res) => {
   var cost = req.body.cost;
   var size = req.body.size;
   var stock = req.body.stock;
-  var cid = req.body.cid;
+  var cid = req.body.catid;
   var des = req.body.des;
+  var existsAlready = "Shoe already existed: You can update it!";
 
   db.query(
-    "INSERT INTO product (pid,name,size,color,cost,stock,des,cid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-    [pid, name, size, color, cost, stock, des, cid],
+    `select * from product p join category c on c.catid=p.cid where name=? and size=? and color=?`,
+    [name, size, color],
     (err, result) => {
       if (err) {
         throw err;
+      } else if (result.length > 0) {
+        db.query(
+          `select * from category where catid<>?`,
+          [result[0].cid],
+          (err, result1) => {
+            if (err) {
+              throw err;
+            }
+            res.render("update_shoes_from_select.ejs", {
+              result,
+              result1,
+              existsAlready,
+            });
+          }
+        );
+      } else {
+        db.query(`select max(pid) from product;`, (err, result1) => {
+          console.log(result1[0]["max(pid)"] + 1);
+          db.query(
+            `insert into product(pid,name,color,size,cost,cid,stock,des) values(?,?,?,?,?,?,?,?)`,
+            [
+              result1[0]["max(pid)"] + 1,
+              name,
+              color,
+              size,
+              cost,
+              cid,
+              stock,
+              des,
+            ],
+            (err, result2) => {
+              res.redirect(`/shoedetails/${result1[0]["max(pid)"] + 1}`);
+            }
+          );
+        });
       }
     }
   );
-
-  res.redirect("/admin");
-});
-app.get("/update_shoes", (req, res) => {
-  var shoename = req.query.name;
-
-  let sql = `select * from product where name='${shoename}'`;
-  db.query(sql, (err, result) => {
-    if (err) {
-      throw err;
-    }
-
-    res.render("update_shoes.ejs", { result });
-  });
 });
 
-app.post("/update_shoes_finally/:stock/:price", (req, res) => {
-  let stock = req.params.stock;
-  // var prise=res.query.cost;
+app.post("/update_shoe/:pid/:color/:size", (req, res) => {
+  var { pid } = req.params;
+  var { size } = req.params;
+  var { color } = req.params;
+  var cost = req.body.cost;
+  var stock = req.body.stock;
+  var des = req.body.des;
 
-  let sql = `update table product set stock='${stock}' where name='${name}'`;
-
-  db.query(sql, (err, result) => {
-    if (err) {
-      throw err;
+  db.query(
+    `select * from product where pid=? and color=? and size=? and cost=?`,
+    [pid, color, size, cost],
+    (err, result) => {
+      if (result.length === 0) {
+        db.query(
+          `update product set cost=? where pid=?`,
+          [cost, pid],
+          (err, result1) => {
+            db.query(
+              `update product set stock=?,des=? where pid=? and color=? and size=?`,
+              [stock, des, pid, color, size],
+              (err, result2) => {
+                res.redirect(`/shoedetails/${pid}`);
+              }
+            );
+          }
+        );
+      } else {
+        db.query(
+          `update product set stock=?,des=? where pid=? and color=? and size=?`,
+          [stock, des, pid, color, size],
+          (err, result2) => {
+            res.redirect(`/shoedetails/${pid}`);
+          }
+        );
+      }
     }
-
-    res.redirect("admin.ejs");
-  });
-});
-
-app.get("/shop/:name", (req, res) => {
-  let shoe_name = req.params.name;
-  let username = req.params.username;
-  let userid = req.session.user;
-
-  let shop_sql = `SELECT x.* , y.*,z.* FROM 
-    (select * from sign_in) as x,
-    (select * from reviews) as y,
-    (select * from product) as z
-    
-    where y.productname='${shoe_name}' and y.productname=z.name and x.username='${req.session.user}'`;
-
-  console.log(req.session.user);
-  console.log(req.session.user);
-  console.log(req.session.user);
-  console.log(req.session.user);
-  console.log(req.session.user);
-  console.log(req.session.user);
-  console.log(req.session.user);
-
-  db.query(shop_sql, (err, result) => {
-    if (err) {
-      throw err;
-    }
-    console.log(userid);
-    console.log(result);
-    res.render("shop.ejs", { result });
-  });
-});
-
-app.get("/cart/:name", (req, res) => {
-  var quantity = req.query.quantity;
-  let shoe_name = req.params.name;
-
-  let cart_sql = `insert into cart(cust_name,productname,quantity)
-    values("${req.session.user}","${shoe_name}",${quantity});`;
-
-  db.query(cart_sql, (err, result) => {
-    if (err) {
-      throw err;
-    }
-
-    res.render("cart.ejs", { result });
-  });
+  );
 });
 
 app.get("/shoedetails/:pid", (req, res) => {
   var { pid } = req.params;
-
   db.query(
     `select * from product p
     join category c
-    on c.catid=p.cid where pid=${pid} group by pid;`,
+    on c.catid=p.cid where pid=? group by pid;`,
+    [pid],
     (err, result) => {
       if (err) {
         throw err;
@@ -306,15 +337,17 @@ app.get("/shoedetails/:pid", (req, res) => {
       db.query(
         `select * from product p
     join category c
-    on c.catid=p.cid where pid=${pid} group by color;`,
+    on c.catid=p.cid where p.pid=? group by color;`,
+        [pid],
         (err, result1) => {
           if (err) {
-            throw err;
+            console.log(pid);
           }
           db.query(
             `select * from product p
         join category c
-        on c.catid=p.cid where pid=${pid} group by size;`,
+        on c.catid=p.cid where pid=? group by size;`,
+            [pid],
             (err, result2) => {
               if (err) {
                 throw err;
@@ -370,6 +403,23 @@ app.get("/ushoedetails/:pid/:username", (req, res) => {
   );
 });
 
+app.get("/orders/:username", (req, res) => {
+  var { username } = req.params;
+
+  db.query(`select * from users where name=?`, [username], (err, result1) => {
+    db.query(
+      `select * from orders o join product p on p.pid=o.pid where o.uid=? order by oid desc`,
+      [uid],
+      (err, result3) => {
+        if (err) {
+          throw err;
+        }
+        res.render("orders.ejs", { result3, username });
+      }
+    );
+  });
+});
+
 app.post("/buy/:pid/:username", (req, res) => {
   var { pid } = req.params;
   var { username } = req.params;
@@ -379,7 +429,23 @@ app.post("/buy/:pid/:username", (req, res) => {
   var quantity = req.body.quantity;
 
   var uid;
-  var oid;
+  var today = new Date();
+  var orderdate =
+    today.getFullYear() +
+    "-" +
+    (today.getMonth() + 1 < 10 ? "0" : "") +
+    (today.getMonth() + 1) +
+    "-" +
+    today.getDate();
+  var future = new Date(); // get today date
+  future.setDate(future.getDate() + 7); // add 7 days
+  var deliverydate =
+    future.getFullYear() +
+    "-" +
+    (future.getMonth() + 1 < 10 ? "0" : "") +
+    (future.getMonth() + 1) +
+    "-" +
+    future.getDate();
 
   db.query(
     `select id from sign_in where username=?`,
@@ -406,9 +472,19 @@ app.post("/buy/:pid/:username", (req, res) => {
         var total = result[0].cost * quantity;
         var stockLeft = result[0].stock - quantity;
         db.query(
-          `insert into orders(uid,pid,color,size,cost,quantity,total) 
+          `insert into orders(uid,pid,color,size,cost,quantity,total,orderdate,deliverydate) 
         values(?,?,?,?,?,?,?)`,
-          [uid, pid, color, size, result[0].cost, quantity, total],
+          [
+            uid,
+            pid,
+            color,
+            size,
+            result[0].cost,
+            quantity,
+            total,
+            orderdate,
+            deliverydate,
+          ],
           (err, result1) => {
             if (err) {
               console.log("blank");
@@ -421,7 +497,7 @@ app.post("/buy/:pid/:username", (req, res) => {
                     console.log("blank1");
                   } else {
                     db.query(
-                      `select * from orders where uid=?`,
+                      `select * from orders o join product p on p.pid=o.pid where uid=? order by oid desc`,
                       [uid],
                       (err, result3) => {
                         res.render("orders.ejs", { result3, username });

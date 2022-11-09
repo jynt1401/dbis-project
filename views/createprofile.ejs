@@ -1,21 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="/createprofile" method="post">
-            <div class="inout">username:<input type="text" name="username" /></div>
-            <div class="inout">password:<input type="text" name="password" /></div>
-            <div class="inout">email:<input type="text" name="email" /></div>
-            <div class="inout">age:<input type="text" name="age" /></div>
-            <div class="inout">gender:<input type="text" name="gender" /></div>
-            <div class="inout">address:<input type="text" name="address" /></div>
-            <div class="inout">mobile:<input type="text" name="mobile" /></div>
-            <button class="done-btn">DONE</button>
-    </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shoes</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .backvdo {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        object-fit: cover;
+      }
+
+      input {
+        border-radius: 50rem;
+        height: 1.5rem;
+        width: 13rem;
+        margin-left: 1rem;
+        border: none;
+        padding-left: 3%;
+      }
+
+      .main {
+        width: 100%;
+        height: 40rem;
+      }
+
+      .form {
+        display: flexbox;
+        justify-content: center;
+        max-width: 430px;
+        min-width: 150px;
+        min-height: 40vh;
+        width: 50%;
+        background: rgba(255, 255, 255, 0.502);
+        border-radius: 1.5rem;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        /* overflow: hidden; */
+        margin-top: 10vh;
+        margin-left: 25%;
+        margin-right: 25%;
+      }
+
+      .form-elem {
+        width: 100%;
+      }
+
+      .num1 {
+        display: inline-flex;
+        width: 40%;
+        margin-left: 5%;
+        text-align: right;
+      }
+
+      .num2 {
+        display: inline-flex;
+        width: 50%;
+        margin-right: 5%;
+      }
+
+      .title {
+        margin-top: 2rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 2rem;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      .inout {
+        border-radius: 5rem;
+        position: relative;
+        height: 50px;
+        width: 100%;
+        color: rgb(255, 255, 255);
+
+        margin-top: 3rem;
+        padding: 1rem 0rem;
+        margin-left: 3rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+      }
+
+      .sign-in-btn {
+        margin: 5% 5% 5% 5%;
+        margin-bottom: 5%;
+        border-radius: 1rem;
+
+        height: 2.5rem;
+        border: none;
+        width: 90%;
+        font-size: 1.4rem;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        color: rgb(159, 159, 159);
+      }
+
+      .sign-in-btn:hover {
+        margin: 5% 5% 5% 5%;
+        margin-bottom: 5%;
+        border-radius: 1rem;
+
+        height: 2.5rem;
+        border: none;
+        width: 90%;
+        font-size: 1.4rem;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        background-color: rgba(140, 220, 234, 0.719);
+        color: white;
+        cursor: pointer;
+      }
+
+      header {
+        position: sticky;
+      }
+    </style>
+  </head>
+
+  <body>
+    <video class="backvdo" src="/file/bg1.mp4" autoplay="" muted loop></video>
+
+    <div class="main">
+      <div class="form">
+        <div class="title">
+          <h3>CREATE PROFILE</h3>
+        </div>
+        <hr style="margin-right: 2%; margin-left: 2%" />
+        <form action="/createprofile" method="post">
+          <div>username:<input type="text" name="username" /></div>
+          <div>password:<input type="text" name="password" /></div>
+          <div>email:<input type="text" name="email" /></div>
+          <div>age:<input type="text" name="age" /></div>
+          <div>gender:<input type="text" name="gender" /></div>
+          <div>address:<input type="text" name="address" /></div>
+          <div>mobile:<input type="text" name="mobile" /></div>
+          <button class="done-btn">DONE</button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

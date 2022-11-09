@@ -925,33 +925,6 @@
           </svg>
         </button>
         <ul class="admin-menu">
-          <li class="menu-heading">
-            <h3>Admin</h3>
-          </li>
-          <li>
-            <a href="#addshoes"
-              ><svg>
-                <use xlink:href="#pages"></use>
-              </svg>
-              <span>Add shoes</span></a
-            >
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#users"></use>
-              </svg>
-              <span>Users</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#trends"></use>
-              </svg>
-              <span>Trends</span>
-            </a>
-          </li>
           <li>
             <a href="#0">
               <svg>
@@ -960,47 +933,23 @@
               <span>Inventory</span>
             </a>
           </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#comments"></use>
-              </svg>
-              <span>Comments</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#appearance"></use>
-              </svg>
-              <span>Appearance</span>
-            </a>
-          </li>
           <li class="menu-heading">
-            <h3>Settings</h3>
+            <h3>Your Data</h3>
           </li>
           <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#settings"></use>
+            <a href="/orders/<%=result[0].username%>"
+              ><svg>
+                <use xlink:href="#pages"></use>
               </svg>
-              <span>Settings</span>
-            </a>
+              <span>Orders</span></a
+            >
           </li>
           <li>
-            <a href="#0">
+            <a href="/profile/<%=result[0].username%>">
               <svg>
-                <use xlink:href="#options"></use>
+                <use xlink:href="#users"></use>
               </svg>
-              <span>Options</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#charts"></use>
-              </svg>
-              <span>Charts</span>
+              <span>Profile</span>
             </a>
           </li>
           <li>
@@ -1035,17 +984,17 @@
             </svg>
           </button>
         </form>
-        <a class="admin-profile" href="/profile/<%=result[0].username%>">
-          <span class="greeting"><%=result[0].username%></span>
-          <div class="notifications">
-            <svg>
-              <use xlink:href="#users"></use>
-            </svg>
-          </div>
+        <a class="admin-profile" href="/logout">
+          <span class="greeting">logout</span>
         </a>
       </section>
+      <% for(let item1 of result1){ %>
+      <h2>
+        #<%=item1.catid%>: <%=item1.gender.toUpperCase()%>'S
+        <%=item1.cat.toUpperCase()%>
+      </h2>
       <section class="grid">
-        <% for(let item of result1){ %>
+        <% for(let item of result2){ %> <%if (item1.catid==item.cid){%>
         <article class="product-card">
           <div class="product-tumb">
             <img
@@ -1059,7 +1008,7 @@
               >#<%=item.cid%>: <%=item.gender%>, <%=item.cat%></span
             >
             <h4>
-              <a href="/ushoedetails/<%=item.pid%>"
+              <a href="/ushoedetails/<%=item.pid%>/<%=result[0].username%>"
                 ><%=item.pid%>: <%=item.name%></a
               >
             </h4>
@@ -1068,64 +1017,17 @@
               <div class="product-price">$ <%=item.cost%></div>
               <div class="product-links">
                 <a href="/ushoedetails/<%=item.pid%>/<%=result[0].username%>"
-                  ><i class="fa fa-shopping-cart">blah blah</i></a
+                  ><i class="fa fa-shopping-cart">Details</i></a
                 >
               </div>
             </div>
           </div>
         </article>
-        <%}%>
+
+        <%}%> <%}%>
       </section>
+      <%}%>
     </section>
-
-    <!-- mera maal -->
-    <!-- <h1>admin</h1>
-    <h3>we will add shoes</h3>
-
-    <a class="button" href="#popup1">Add shoes</a>
-
-    <div id="popup1" class="overlay">
-      <div class="popup">
-        <form action="/add_shoes_done" method="post">
-          <div class="inout">Pid:<input type="text" name="pid" /></div>
-          <div class="inout">Name:<input type="text" name="name" /></div>
-          <div class="inout">Cost:<input type="text" name="cost" /></div>
-          <div class="inout">Size:<input type="text" name="size" /></div>
-          <div class="inout">Category1:<input type="text" name="cid" /></div>
-          <div class="inout">Stock:<input type="text" name="stock" /></div>
-          <div class="inout">Color:<input type="text" name="color" /></div>
-          <div class="inout">
-            Description:<input type="textarea" name="des" />
-          </div>
-
-          <button class="done-btn">DONE</button>
-        </form>
-        <a class="close" href="#">&times;</a>
-      </div>
-    </div>
-
-    <form action="/update_shoes">
-      <div class="search">Name:<input type="text" name="name" /></div>
-      <button>update shoes</button>
-    </form>
-
-    <% for(let item of result){ %>
-    <div class="element">
-      <div class="img"><div class="boximg">image here</div></div>
-      <div class="info">
-        <h2>name -------------<%=item.name%></h2>
-        <h3>pid------<%=item.pid%></h3>
-        <h3>cost---------<%=item.cost%></h3>
-        <h3>size--------<%=item.size%></h3>
-        <h3>stock------<%=item.stock%></h3>
-        <h3>color------<%=item.color%></h3>
-        <h3>cid------<%=item.cid%></h3>
-        <h3>gender------<%=item.gender%></h3>
-        <h3>type------<%=item.type%></h3>
-        <h3>des------<%=item.des%></h3>
-      </div>
-    </div>
-    <%}%> -->
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
