@@ -63,7 +63,7 @@ app.post("/sign_in", (req, res) => {
     db.query(
       ` select * from product p
         join category c
-        on c.catid=p.cid group by pid`,
+        on c.catid=p.cid group by pid `,
       (err, result) => {
         if (err) {
           throw err;
@@ -343,20 +343,13 @@ app.get("/shoedetails/:pid", (req, res) => {
           if (err) {
             console.log(pid);
           }
-          res.render("ADMINshoedetails.ejs", { result, result1 });
-
-          //   db.query(
-          //     `select * from product p
-          // join category c
-          // on c.catid=p.cid where pid=? group by size;`,
-          //     [pid],
-          //     (err, result2) => {
-          //       if (err) {
-          //         throw err;
-          //       }
-          //       res.render("ADMINshoedetails.ejs", { result, result1, result2 });
-          //     }
-          //   );
+          db.query(
+            `select * from reviews r join sign_in u on r.uid=u.id where r.pid=?`,
+            [pid],
+            (err, reviews) => {
+              res.render("ADMINshoedetails.ejs", { result, result1, reviews });
+            }
+          );
         }
       );
     }
@@ -391,12 +384,19 @@ app.get("/ushoedetails/:pid/:username", (req, res) => {
               if (err) {
                 throw err;
               }
-              res.render("CUSTOMERshoedetails.ejs", {
-                result,
-                result1,
-                result2,
-                username,
-              });
+              db.query(
+                `select * from reviews r join sign_in u on r.uid=u.id where r.pid=?`,
+                [pid],
+                (err, reviews) => {
+                  res.render("CUSTOMERshoedetails.ejs", {
+                    result,
+                    result1,
+                    result2,
+                    username,
+                    reviews,
+                  });
+                }
+              );
             }
           );
         }
@@ -407,6 +407,10 @@ app.get("/ushoedetails/:pid/:username", (req, res) => {
 
 app.get("/orders/:username", (req, res) => {
   var { username } = req.params;
+  var uid;
+  db.query(`select * from sign_in where username=?`,[username],(err,result)=>{
+    uid=result[0].id;
+  })
 
   db.query(`select * from user where name=?`, [username], (err, result1) => {
     db.query(
@@ -416,7 +420,42 @@ app.get("/orders/:username", (req, res) => {
         if (err) {
           console.log("kyu");
         }
-        res.render("orders.ejs", { result3, username });
+        res.render("orders.ejs", { result3, username, result1,uid });
+      }
+    );
+  });
+});
+
+app.get("/addreviewpage/:uid/:username/:pid", (req, res) => {
+  var { uid } = req.params;
+  var { username } = req.params;
+  var { pid } = req.params;
+
+  db.query(`select * from user where uid=?`, [uid], (err, result1) => {
+    db.query(
+      `select * from product where pid=? group by pid`,
+      [pid],
+      (err, result) => {
+        console.log(result.length);
+        res.render("review.ejs", { username, result1, result });
+      }
+    );
+  });
+});
+
+app.post("/addreview/:pid/:username", (req, res) => {
+  var { pid } = req.params;
+  var { username } = req.params;
+  var review = req.body.review;
+  var uid;
+  db.query(`select * from user where name=?`, [username], (err, result3) => {
+    uid = result3[0].uid;
+
+    db.query(
+      `insert into reviews(pid,uid,review) values(?,?,?)`,
+      [pid, result3[0].uid, review],
+      (err, result) => {
+        res.redirect(`/orders/${username}`);
       }
     );
   });
@@ -502,7 +541,11 @@ app.post("/buy/:pid/:username", (req, res) => {
                       `select * from orders o join product p on p.pid=o.pid where uid=? order by oid desc`,
                       [uid],
                       (err, result3) => {
-                        res.render("orders.ejs", { result3, username });
+                        res.render("orders.ejs", {
+                          result3,
+                          username,
+                          uid
+                        });
                       }
                     );
                   }

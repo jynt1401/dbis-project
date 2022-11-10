@@ -939,76 +939,10 @@
             </svg>
           </button>
         </form>
-        <a class="admin-profile" href="/profile/<%=username%>">
-          <span class="greeting"><%=username%></span>
-          <div class="notifications">
-            <span class="badge">1</span>
-            <svg>
-              <use xlink:href="#users"></use>
-            </svg>
-          </div>
+        <a class="admin-profile" href="/logout">
+          <span class="greeting">logout</span>
         </a>
       </section>
-      <!-- <section class="grid">
-        <article>
-          <article class="product-card">
-            <% for(let item of result){ %>
-            <form action="/buy/<%=item.pid%>/<%=username%>" method="post">
-              <div class="product-tumb">
-                <img
-                  src="https://i.imgur.com/xdbHo4E.png"
-                  alt=""
-                  style="height: 20%; width: 20%; min-width: 40px"
-                />
-              </div>
-              <div class="product-details">
-                <span class="product-catagory"
-                  ><%=item.gender%>, <%=item.cat%></span
-                >
-                <h4><%=item.name%></h4>
-                <p><%=item.des%></p>
-                <div class="product-bottom-details">
-                  <div class="product-price">$ <%=item.cost%></div>
-                </div>
-              </div>
-              <label for="colors">Choose a color:</label>
-              <select id="colors" name="color">
-                <% for(let item1 of result1){ %>
-
-                <option value="<%=item1.color%>"><%=item1.color%></option>
-
-                <%}%>
-              </select>
-              <br /><label for="size">Choose a size:</label>
-
-              <select id="size" name="size">
-                <% for(let item2 of result2){ %>
-
-                <option value="<%=item2.size%>"><%=item2.size%></option>
-
-                <%}%>
-              </select>
-              <label for="quantity"> Quantity: </label>
-              <input
-                type="number"
-                name="quantity"
-                id="quantity"
-                value="quantity"
-                min="1"
-                max="5"
-                required
-              />
-
-              <button>buy</button>
-            </form>
-            <%}%> <%=errMsg%>
-          </article>
-        </article>
-      </section> -->
-
-
-
-
       <div class="">
 
         <!---------------------------------------------- ejs here ---------------------------------------------->
@@ -1097,7 +1031,15 @@
             </form>
             <%}%>
               <%=errMsg%>
+              
       </div>
+      <h3>REVIEWS</h3>
+      <hr size="10" style="width: 95%; align-self: center; color: black;">
+              <% for (let item of reviews){%>
+                Review By:<%=item.username%><br>
+                #:<%=item.review%><br>
+                <hr size="1" style="width: 95%; align-self: center; color: rgb(163, 162, 162);">
+              <%}%>
   
       <footer class="page-footer">
         <span>made by </span>

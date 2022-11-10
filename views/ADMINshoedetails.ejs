@@ -971,14 +971,22 @@
           <tbody>
             <% for (let item1 of result1) { %>
             <tr>
-              <td style="max-height: 25px;"><%=item1.size%></td>
-              <td style="max-height: 25px;"><%=item1.color%></td>
-              <td style="max-height: 25px;"><%=item1.stock%></td>
+              <td style="max-height: 25px"><%=item1.size%></td>
+              <td style="max-height: 25px"><%=item1.color%></td>
+              <td style="max-height: 25px"><%=item1.stock%></td>
             </tr>
             <%}%>
           </tbody>
         </table>
       </section>
+      <h3>REVIEWS</h3>
+      <hr style="width: 95%; align-self: center; size: 2; color: black" />
+      <% for (let item of reviews){%>
+      Review By:<%=item.username%><br />
+      #:<%=item.review%><br />
+      <hr style="width: 95%; align-self: center; size: 1; color: grey" />
+      <%}%>
+
       <footer class="page-footer">
         <span>made by </span>
         <a href="https://georgemartsoukos.com/" target="_blank">
