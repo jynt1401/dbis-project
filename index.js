@@ -337,24 +337,26 @@ app.get("/shoedetails/:pid", (req, res) => {
       db.query(
         `select * from product p
     join category c
-    on c.catid=p.cid where p.pid=? group by color;`,
+    on c.catid=p.cid where p.pid=? order by p.size asc;`,
         [pid],
         (err, result1) => {
           if (err) {
             console.log(pid);
           }
-          db.query(
-            `select * from product p
-        join category c
-        on c.catid=p.cid where pid=? group by size;`,
-            [pid],
-            (err, result2) => {
-              if (err) {
-                throw err;
-              }
-              res.render("ADMINshoedetails.ejs", { result, result1, result2 });
-            }
-          );
+          res.render("ADMINshoedetails.ejs", { result, result1 });
+
+          //   db.query(
+          //     `select * from product p
+          // join category c
+          // on c.catid=p.cid where pid=? group by size;`,
+          //     [pid],
+          //     (err, result2) => {
+          //       if (err) {
+          //         throw err;
+          //       }
+          //       res.render("ADMINshoedetails.ejs", { result, result1, result2 });
+          //     }
+          //   );
         }
       );
     }
@@ -406,13 +408,13 @@ app.get("/ushoedetails/:pid/:username", (req, res) => {
 app.get("/orders/:username", (req, res) => {
   var { username } = req.params;
 
-  db.query(`select * from users where name=?`, [username], (err, result1) => {
+  db.query(`select * from user where name=?`, [username], (err, result1) => {
     db.query(
       `select * from orders o join product p on p.pid=o.pid where o.uid=? order by oid desc`,
-      [uid],
+      [result1[0].uid],
       (err, result3) => {
         if (err) {
-          throw err;
+          console.log("kyu");
         }
         res.render("orders.ejs", { result3, username });
       }
@@ -473,7 +475,7 @@ app.post("/buy/:pid/:username", (req, res) => {
         var stockLeft = result[0].stock - quantity;
         db.query(
           `insert into orders(uid,pid,color,size,cost,quantity,total,orderdate,deliverydate) 
-        values(?,?,?,?,?,?,?)`,
+        values(?,?,?,?,?,?,?,?,?)`,
           [
             uid,
             pid,

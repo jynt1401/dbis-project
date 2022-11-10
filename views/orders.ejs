@@ -568,6 +568,295 @@
       .page-footer a {
         margin-left: 4px;
       }
+
+      /* table */
+      /*	
+	Table Responsive
+	===================
+	Author: https://github.com/pablorgarcia
+ */
+
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 300;
+        line-height: 1.42em;
+        color: #a7a1ae;
+        background-color: #1f2739;
+      }
+
+      h1 {
+        font-size: 3em;
+        font-weight: 300;
+        line-height: 1em;
+        text-align: center;
+        color: #4dc3fa;
+      }
+
+      h2 {
+        font-size: 1em;
+        font-weight: 300;
+        text-align: center;
+        display: block;
+        line-height: 1em;
+        padding-bottom: 2em;
+        color: #fb667a;
+      }
+
+      h2 a {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fb667a;
+        text-decoration: none;
+      }
+
+      .blue {
+        color: #185875;
+      }
+      .yellow {
+        color: #fff842;
+      }
+
+      @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+      div.table-title {
+        display: block;
+        margin: auto;
+        max-width: 600px;
+        padding: 5px;
+        width: 100%;
+      }
+
+      .table-title h3 {
+        color: #070000;
+        font-size: 30px;
+        font-weight: 400;
+        font-style: normal;
+        font-family: "Roboto", helvetica, arial, sans-serif;
+        text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      /*** Table Styles **/
+
+      .table-fill {
+        background: white;
+        border-radius: 3px;
+        border-collapse: collapse;
+        height: 320px;
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        animation: float 5s infinite;
+      }
+
+      th {
+        color: #d5dde5;
+        background: #1b1e24;
+        border-bottom: 4px solid #9ea7af;
+        border-right: 1px solid #343a45;
+        font-size: 20px;
+        font-weight: 100;
+        padding: 10px;
+        text-align: left;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        vertical-align: middle;
+      }
+
+      th:first-child {
+        border-top-left-radius: 3px;
+      }
+
+      th:last-child {
+        border-top-right-radius: 3px;
+        border-right: none;
+      }
+
+      tr {
+        border-top: 1px solid #c1c3d1;
+        border-bottom: 1px solid #c1c3d1;
+        color: #666b85;
+        font-size: 18px;
+        font-weight: normal;
+        text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+      }
+
+      tr:hover td {
+        background: #4e5066;
+        color: #ffffff;
+        border-top: 1px solid #22262e;
+      }
+
+      tr:first-child {
+        border-top: none;
+      }
+
+      tr:last-child {
+        border-bottom: none;
+      }
+
+      tr:nth-child(odd) td {
+        background: #ebebeb;
+      }
+
+      tr:nth-child(odd):hover td {
+        background: #4e5066;
+      }
+
+      tr:last-child td:first-child {
+        border-bottom-left-radius: 3px;
+      }
+
+      tr:last-child td:last-child {
+        border-bottom-right-radius: 3px;
+      }
+
+      td {
+        background: #ffffff;
+        padding: 5px;
+        text-align: left;
+        vertical-align: middle;
+        font-weight: 300;
+        font-size: 18px;
+        text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+        border-right: 1px solid #c1c3d1;
+      }
+
+      td:last-child {
+        border-right: 0px;
+      }
+
+      th.text-left {
+        text-align: left;
+      }
+
+      th.text-center {
+        text-align: center;
+      }
+
+      th.text-right {
+        text-align: right;
+      }
+
+      td.text-left {
+        text-align: left;
+      }
+
+      td.text-center {
+        text-align: center;
+      }
+
+      td.text-right {
+        text-align: right;
+      }
+
+      /* footer */
+      .footer {
+        margin-top: 6rem;
+        width: 85.6%;
+        position: relative;
+        height: auto;
+        background-color: #242e42;
+        z-index: -1;
+        margin-left: 13.6rem;
+      }
+      .footer .col {
+        width: 190px;
+        height: auto;
+        float: left;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        padding: 0px 20px 20px 20px;
+      }
+      .footer .col h1 {
+        margin: 0;
+        margin-left: 40%;
+        padding: 0;
+        font-family: inherit;
+        font-size: 12px;
+        line-height: 17px;
+        padding: 20px 0px 5px 0px;
+        color: #242e42;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+      }
+      .footer .col ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      .footer .col ul li {
+        color: #ffffff;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: bold;
+        padding: 5px 0px 5px 0px;
+        cursor: pointer;
+        transition: 0.2s;
+        -webkit-transition: 0.2s;
+        -moz-transition: 0.2s;
+      }
+      .social ul li {
+        display: inline-block;
+        padding-right: 5px !important;
+      }
+
+      .footer .col ul li:hover {
+        color: #ffffff;
+        transition: 0.1s;
+        -webkit-transition: 0.1s;
+        -moz-transition: 0.1s;
+      }
+      .clearfix {
+        clear: both;
+      }
+      @media only screen and (min-width: 1280px) {
+        .contain {
+          width: 1200px;
+          margin: 0 auto;
+        }
+      }
+      @media only screen and (max-width: 1139px) {
+        .contain .social {
+          width: 1000px;
+          display: block;
+        }
+        .social h1 {
+          margin: 0px;
+        }
+      }
+      @media only screen and (max-width: 950px) {
+        .footer .col {
+          width: 33%;
+        }
+        .footer .col h1 {
+          font-size: 14px;
+        }
+        .footer .col ul li {
+          font-size: 13px;
+        }
+      }
+      @media only screen and (max-width: 500px) {
+        .footer .col {
+          width: 50%;
+        }
+        .footer .col h1 {
+          font-size: 14px;
+        }
+        .footer .col ul li {
+          font-size: 13px;
+        }
+      }
+      @media only screen and (max-width: 340px) {
+        .footer .col {
+          width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -727,81 +1016,22 @@
         </button>
         <ul class="admin-menu">
           <li class="menu-heading">
-            <h3>Admin</h3>
+            <h3>Your Data</h3>
           </li>
           <li>
-            <a href="#0">
-              <svg>
+            <a href="/orders/<%=username%>"
+              ><svg>
                 <use xlink:href="#pages"></use>
               </svg>
-              <span>Orders</span>
-            </a>
+              <span>Orders</span></a
+            >
           </li>
           <li>
-            <a href="#0">
+            <a href="/profile/<%=username%>">
               <svg>
                 <use xlink:href="#users"></use>
               </svg>
-              <span>Users</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#trends"></use>
-              </svg>
-              <span>Trends</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#collection"></use>
-              </svg>
-              <span>Collection</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#comments"></use>
-              </svg>
-              <span>Comments</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#appearance"></use>
-              </svg>
-              <span>Appearance</span>
-            </a>
-          </li>
-          <li class="menu-heading">
-            <h3>Settings</h3>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#settings"></use>
-              </svg>
-              <span>Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#options"></use>
-              </svg>
-              <span>Options</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#charts"></use>
-              </svg>
-              <span>Charts</span>
+              <span>Profile</span>
             </a>
           </li>
           <li>
@@ -838,52 +1068,100 @@
           </div>
         </div>
       </section>
-      
+      <div class="table-title">
+        <h3>Your Orders</h3>
+      </div>
 
-            <table></table>
-              <caption>
-                Statement Summary
-              </caption>
-              <thead>
-                <tr>
-                  
-                  <th scope="col">orderdate</th>
-                  <th scope="col">orderid</th>
-                  <th scope="col">pid</th>
-                  <th scope="col">color</th>
-                  <th scope="col">size</th>
-                  <th scope="col">quantity</th>
-                  <th scope="col">cost</th>
-                  <th scope="col">total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% for(let item of result3){ %>
-                <tr>
-                  <td data-label="Period"><%=item.orderdate%></td>
-                  <td data-label="Account"><%=item.oid%></td>
-                  <td data-label="Due Date"><%=item.pid%></td>
-                  <td data-label="Due Date"><%=item.color%></td>
-                  <td data-label="Due Date"><%=item.size%></td>
-                  <td data-label="Amount"><%=item.quantity%></td>
-                  <td data-label="Period"><%=item.cost%></td>
-                  <td data-label="Period"><%=item.total%></td>
-                </tr>
-                <%}%>
-              </tbody>
-            </table>
-      
-      <footer class="page-footer">
-        <span>made by </span>
-        <a href="https://georgemartsoukos.com/" target="_blank">
-          <img
-            width="24"
-            height="24"
-            src="https://assets.codepen.io/162656/george-martsoukos-small-logo.svg"
-            alt="George Martsoukos logo"
-          />
-        </a>
-      </footer>
+      <table class="table-fill">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">Orderid</th>
+            <th scope="col" class="text-center">Product Name</th>
+            <th scope="col" class="text-center">Color</th>
+            <th scope="col" class="text-center">Size</th>
+            <th scope="col" class="text-center">Cost</th>
+            <th scope="col" class="text-center">Order Placed On</th>
+            <th scope="col" class="text-center">Delivery-Date</th>
+            <th scope="col" class="text-center">Quantity</th>
+            <th scope="col" class="text-center">Total</th>
+          </tr>
+        </thead>
+        <tbody class="table-hover">
+          <% for(let item of result3){ %>
+          <tr>
+            <td class="text-center" data-label="Orderid"><%=item.oid%></td>
+            <td class="text-center" data-label="product name">
+              <%=item.name.toUpperCase()%>
+            </td>
+            <td class="text-center" data-label="color"><%=item.color%></td>
+            <td class="text-center" data-label="size"><%=item.size%></td>
+            <td class="text-center" data-label="cost">₹<%=item.cost%></td>
+            <td class="text-center" data-label="orderdate">
+              <%=item.orderdate%>
+            </td>
+            <td class="text-center" data-label="deliverydate">
+              <%=item.deliverydate%>
+            </td>
+            <td class="text-center" data-label="quantity"><%=item.quantity%></td>
+            <td class="text-center" data-label="total">₹<%=item.total%></td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+
+      <div class="footer">
+        <div class="contain">
+          <div class="col">
+            <h1>Company</h1>
+            <ul>
+              <li>About</li>
+              <li>Mission</li>
+              <li>Services</li>
+              <li>Social</li>
+              <li>Get in touch</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h1>Products</h1>
+            <ul>
+              <li>About</li>
+              <li>Mission</li>
+              <li>Services</li>
+              <li>Social</li>
+              <li>Get in touch</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h1>Accounts</h1>
+            <ul>
+              <li>About</li>
+              <li>Mission</li>
+              <li>Services</li>
+              <li>Social</li>
+              <li>Get in touch</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h1>Resources</h1>
+            <ul>
+              <li>Webmail</li>
+              <li>Redeem code</li>
+              <li>WHOIS lookup</li>
+              <li>Site map</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h1>Support</h1>
+            <ul>
+              <li>Contact us</li>
+              <li>Web chat</li>
+              <li>Open ticket</li>
+            </ul>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
     </section>
 
     <script>

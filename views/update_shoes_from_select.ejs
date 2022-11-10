@@ -929,27 +929,19 @@
             <h3>Admin</h3>
           </li>
           <li>
-            <a href="#0"
+            <a href="/add_shoes"
               ><svg>
-                <use xlink:href="/admin"></use>
+                <use xlink:href="#pages"></use>
               </svg>
-              <span>Add shoes</span></a
+              <span>Add/Update shoes</span></a
             >
-          </li>
-          <li>
-            <a href="/users">
-              <svg>
-                <use xlink:href="#users"></use>
-              </svg>
-              <span>Users</span>
-            </a>
           </li>
           <li>
             <a href="#0">
               <svg>
-                <use xlink:href="#trends"></use>
+                <use xlink:href="#users"></use>
               </svg>
-              <span>Trends</span>
+              <span>Users</span>
             </a>
           </li>
           <li>
@@ -958,49 +950,6 @@
                 <use xlink:href="#collection"></use>
               </svg>
               <span>Inventory</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#comments"></use>
-              </svg>
-              <span>Comments</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#appearance"></use>
-              </svg>
-              <span>Appearance</span>
-            </a>
-          </li>
-          <li class="menu-heading">
-            <h3>Settings</h3>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#settings"></use>
-              </svg>
-              <span>Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#options"></use>
-              </svg>
-              <span>Options</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#charts"></use>
-              </svg>
-              <span>Charts</span>
             </a>
           </li>
           <li>
@@ -1055,21 +1004,19 @@
           <div class="inout">Name: <%=item.name%></div>
           <div class="inout">Color : <%=item.color%></div>
           <div class="inout">Size: <%=item.size%></div>
-          <div class="inout">Size: <%=item.size%></div>
           <div class="inout">
             Category:<%=item.gender.toUpperCase()%>'S
             <%=item.cat.toUpperCase()%>
           </div>
 
-          
           <div class="inout">
-            Cost:<input type="number" name="cost" min="100" />
+            Cost:<input type="number" name="cost" min="100" required />
           </div>
           <div class="inout">
-            Stock:<input type="number" name="stock" min="10" />
+            Stock:<input type="number" name="stock" min="10" required />
           </div>
           <div class="inout">
-            Description:<input type="textarea" name="des" />
+            Description:<input type="textarea" name="des" required />
           </div>
 
           <button class="done-btn">UPDATE</button>

@@ -1049,15 +1049,15 @@
         
         <form action="/add_shoes_done" method="post">
           <div class="inout">
-            Name:<input list="name" name="name" /><datalist id="name">
+            Name:<input list="name" name="name" required/><datalist id="name">
               <% for(let item of result){ %>
               <option value="<%=item.name%>"><%=item.name%></option>
               <%}%>
             </datalist>
           </div>
-          <div class="inout">Cost:<input type="number" name="cost" /></div>
+          <div class="inout">Cost:<input type="number" name="cost" required/></div>
           <div class="inout">
-            Size:<input type="number" name="size" min="6" max="12" />
+            Size:<input type="number" name="size" min="6" max="12" required/>
           </div>
           <div class="inout">
             Category:
@@ -1079,6 +1079,8 @@
 
           <button class="done-btn">DONE</button>
         </form>
+
+        
         
       </section>
     </section>

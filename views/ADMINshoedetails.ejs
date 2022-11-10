@@ -311,10 +311,10 @@
         box-shadow: var(--box-shadow);
       }
 
-      .page-content .grid > article:first-child,
+      /* .page-content .grid > article:first-child,
       .page-content .grid > article:last-child {
         grid-column: 1 / -1;
-      }
+      } */
 
       /* MQ RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -568,6 +568,136 @@
       .page-footer a {
         margin-left: 4px;
       }
+
+      /* ----------------------- */
+      /*	
+	Table Responsive
+	===================
+	Author: https://github.com/pablorgarcia
+ */
+
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 300;
+        line-height: 1.42em;
+        color: #a7a1ae;
+        background-color: #1f2739;
+      }
+
+      h1 {
+        font-size: 3em;
+        font-weight: 300;
+        line-height: 1em;
+        text-align: center;
+        color: #4dc3fa;
+      }
+
+      h2 {
+        font-size: 1em;
+        font-weight: 300;
+        text-align: center;
+        display: block;
+        line-height: 1em;
+        padding-bottom: 2em;
+        color: #fb667a;
+      }
+
+      h2 a {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fb667a;
+        text-decoration: none;
+      }
+
+      .blue {
+        color: #185875;
+      }
+      .yellow {
+        color: #fff842;
+      }
+
+      .container th h1 {
+        font-weight: bold;
+        font-size: 1em;
+        text-align: left;
+        color: #185875;
+      }
+
+      .container td {
+        font-weight: normal;
+        font-size: 1em;
+        -webkit-box-shadow: 0 2px 2px -2px #0e1119;
+        -moz-box-shadow: 0 2px 2px -2px #0e1119;
+        box-shadow: 0 2px 2px -2px #0e1119;
+        max-height: 30px;
+      }
+
+      .container {
+        text-align: left;
+        overflow: hidden;
+        width: 80%;
+        margin: 0 auto;
+        display: table;
+        padding: 2%;
+      }
+
+      .container td,
+      .container th {
+        padding-bottom: 2%;
+        padding-top: 2%;
+        padding-left: 2%;
+        color: white;
+        max-height: 30px;
+      }
+
+      /* Background-color of the odd rows */
+      .container tr:nth-child(odd) {
+        background-color: #323c50;
+      }
+
+      /* Background-color of the even rows */
+      .container tr:nth-child(even) {
+        background-color: #2c3446;
+      }
+
+      .container th {
+        background-color: #1f2739;
+      }
+
+      .container td:first-child {
+        color: #fb667a;
+      }
+
+      .container tr:hover {
+        background-color: #464a52;
+        -webkit-box-shadow: 0 6px 6px -6px #0e1119;
+        -moz-box-shadow: 0 6px 6px -6px #0e1119;
+        box-shadow: 0 6px 6px -6px #0e1119;
+      }
+
+      .container tr:hover {
+        background-color: #fff842;
+        color: #403e10;
+        font-weight: bold;
+
+        box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
+          #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;
+        transform: translate3d(6px, -6px, 0);
+
+        transition-delay: 0s;
+        transition-duration: 0.4s;
+        transition-property: all;
+        transition-timing-function: line;
+      }
+
+      @media (max-width: 800px) {
+        .container td:nth-child(4),
+        .container th:nth-child(4) {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -730,12 +860,12 @@
             <h3>Admin</h3>
           </li>
           <li>
-            <a href="#0">
-              <svg>
+            <a href="/add_shoes"
+              ><svg>
                 <use xlink:href="#pages"></use>
               </svg>
-              <span>Pages</span>
-            </a>
+              <span>Add/Update shoes</span></a
+            >
           </li>
           <li>
             <a href="#0">
@@ -746,62 +876,11 @@
             </a>
           </li>
           <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#trends"></use>
-              </svg>
-              <span>Trends</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
+            <a href="/admin">
               <svg>
                 <use xlink:href="#collection"></use>
               </svg>
-              <span>Collection</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#comments"></use>
-              </svg>
-              <span>Comments</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#appearance"></use>
-              </svg>
-              <span>Appearance</span>
-            </a>
-          </li>
-          <li class="menu-heading">
-            <h3>Settings</h3>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#settings"></use>
-              </svg>
-              <span>Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#options"></use>
-              </svg>
-              <span>Options</span>
-            </a>
-          </li>
-          <li>
-            <a href="#0">
-              <svg>
-                <use xlink:href="#charts"></use>
-              </svg>
-              <span>Charts</span>
+              <span>Inventory</span>
             </a>
           </li>
           <li>
@@ -829,7 +908,7 @@
     <section class="page-content">
       <section class="search-and-user">
         <div class="admin-profile">
-          <span class="greeting">Hello gandu</span>
+          <span class="greeting">Hello Admin</span>
           <div class="notifications">
             <span class="badge">1</span>
             <svg>
@@ -839,49 +918,66 @@
         </div>
       </section>
       <section class="grid">
-        <article>
-          <article class="product-card">
-            
-            <% for(let item of result){ %>
+        <article class="product-card">
+          <% for(let item of result){ %>
 
-            <div class="product-tumb">
-              <img
-                src="https://i.imgur.com/xdbHo4E.png"
-                alt=""
-                style="height: 20%; width: 20%; min-width: 40px"
-              />
+          <div class="product-tumb">
+            <img
+              src="https://i.imgur.com/xdbHo4E.png"
+              alt=""
+              style="height: 20%; width: 20%; min-width: 40px"
+            />
+          </div>
+          <div class="product-details">
+            <span class="product-catagory"
+              >#<%=item.cid%>: <%=item.gender%>, <%=item.cat%></span
+            >
+            <h4><a href=""><%=item.pid%>: <%=item.name%></a></h4>
+            <p><%=item.des%></p>
+            <div class="product-bottom-details">
+              <div class="product-price">$ <%=item.cost%></div>
             </div>
-            <div class="product-details">
-              <span class="product-catagory"
-                >#<%=item.cid%>: <%=item.gender%>, <%=item.cat%></span
-              >
-              <h4><a href=""><%=item.pid%>: <%=item.name%></a></h4>
-              <p><%=item.des%></p>
-              <div class="product-bottom-details">
-                <div class="product-price">$ <%=item.cost%></div>
-              </div>
-            </div>          
-              <label for="colors">Choose a color:</label>
-              <select id="colors" name="color">
-                <% for(let item1 of result1){ %>
+          </div>
 
-                <option value="<%=item1.color%>"><%=item1.color%></option>
-
+          <!-- <table class="container">
+              <thead>
+                <tr>
+                  <th><h1>Size</h1></th>
+                  <th><h1>Color</h1></th>
+                  <th><h1>Stock</h1></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let item1 of result1) { %>
+                <tr>
+                  <td><%=item1.size%></td>
+                  <td><%=item1.color%></td>
+                  <td><%=item1.stock%></td>
+                </tr>
                 <%}%>
-              </select>
-              <br /><label for="size">Choose a size:</label>
-
-              <select id="size" name="size">
-                <% for(let item2 of result2){ %>
-
-                <option value="<%=item2.size%>"><%=item2.size%></option>
-
-                <%}%>
-              </select>
-            <%}%>
-            
-          </article>
+              </tbody>
+            </table> -->
+          <%}%>
         </article>
+
+        <table class="container">
+          <thead>
+            <tr>
+              <th><h1>Size</h1></th>
+              <th><h1>Color</h1></th>
+              <th><h1>Stock</h1></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let item1 of result1) { %>
+            <tr>
+              <td style="max-height: 25px;"><%=item1.size%></td>
+              <td style="max-height: 25px;"><%=item1.color%></td>
+              <td style="max-height: 25px;"><%=item1.stock%></td>
+            </tr>
+            <%}%>
+          </tbody>
+        </table>
       </section>
       <footer class="page-footer">
         <span>made by </span>
