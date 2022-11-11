@@ -325,6 +325,7 @@ app.post("/update_shoe/:pid/:color/:size", (req, res) => {
 
 app.get("/shoedetails/:pid", (req, res) => {
   var { pid } = req.params;
+  
   db.query(
     `select * from product p
     join category c
@@ -359,6 +360,7 @@ app.get("/shoedetails/:pid", (req, res) => {
 app.get("/ushoedetails/:pid/:username", (req, res) => {
   var { pid } = req.params;
   var { username } = req.params;
+  var name;
 
   db.query(
     `select * from product p
