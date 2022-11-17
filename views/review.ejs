@@ -1120,16 +1120,16 @@
         </a>
       </section>
 
-      <div class="table-title">
-        <h3>Review for <%=result[0].name.toUpperCase()%></h3>
-      </div>
+      
+        <h3 style="padding-left: 10px;">Review for <%=result[0].name.toUpperCase()%></h3>
+      
       <form
         action="/addreview/<%=result[0].pid%>/<%=username%>"
         method="post"
         style="align-self: center"
       >
-        <input type="textarea" name="review" required />
-        <button type="submit">Add review</button>
+        <textarea name="review"  rows="10" cols="50" placeholder="Give a review" style="font-size: 15px; font-style:oblique; border-radius:10px 10px 0 0; padding: 10px; width:50%; resize: none;" required /></textarea><br>
+        <button type="submit" style="border: 1px solid black; border-radius:0 0 10px 10px; background-color:var(--blue); padding:10px; width:50%;">Add review</button>
       </form>
 
       <div class="footer">

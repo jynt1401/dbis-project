@@ -107,18 +107,29 @@
       display: flex;
       min-width: 500px;
       background-color: white;
-      border-radius: 10px;
+      border-radius: 10px 10px 0 0;
       /* border: 2px solid red; */
-      width: 80%;
+      width: 90%;
       height: 50%;
       margin: auto auto;
+    }
+    .reviews {
+      min-width: 500px;
+      background-color: white;
+      border-radius: 0 0 10px 10px;
+      /* border: 2px solid red; */
+      width: 90%;
+      height: 50%;
+      margin: auto auto;
+      padding: 2%;
+      border-top: 1px double black;
     }
 
     .img {
       display: block;
       padding: 1rem 1rem;
       /* border: 2px solid rgb(0, 255, 89); */
-      width: 50%;
+      /* width: 33%; */
       height: 100%;
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -175,7 +186,7 @@
     .desc {
       margin-left: 1.2rem;
       margin-top: 7px;
-      width: 100%;
+      /* width: 100%; */
       /* border: 2px solid rgb(0, 255, 225); */
       font-family:  Courier, monospace;
     }
@@ -1028,18 +1039,20 @@
     
     
                 <button class="btn-buy">buy</button>
+                
             </form>
             <%}%>
               <%=errMsg%>
               
       </div>
-      <h3>REVIEWS</h3>
-      <hr size="10" style="width: 95%; align-self: center; color: black;">
-              <% for (let item of reviews){%>
-                Review By:<%=item.username%><br>
-                #:<%=item.review%><br>
-                <hr size="1" style="width: 95%; align-self: center; color: rgb(163, 162, 162);">
-              <%}%>
+      <div class="reviews"><h3>REVIEWS</h3>
+        <hr size="10" style="width: 95%; align-self: center; color: black;">
+                <% for (let item of reviews){%>
+                  Review By:<%=item.username%><br>
+                  #:<%=item.review%><br>
+                  <hr size="1" style="width: 95%; align-self: center; color: rgb(163, 162, 162);">
+                <%}%></div>
+      
   
       <footer class="page-footer">
         <span>made by </span>

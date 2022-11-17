@@ -238,50 +238,58 @@ app.post("/add_shoes_done", (req, res) => {
   var des = req.body.des;
   var existsAlready = "Shoe already existed: You can update it!";
 
-  db.query(
-    `select * from product p join category c on c.catid=p.cid where name=? and size=? and color=?`,
-    [name, size, color],
-    (err, result) => {
-      if (err) {
-        throw err;
-      } else if (result.length > 0) {
-        db.query(
-          `select * from category where catid<>?`,
-          [result[0].cid],
-          (err, result1) => {
-            if (err) {
-              throw err;
-            }
-            res.render("update_shoes_from_select.ejs", {
-              result,
-              result1,
-              existsAlready,
-            });
-          }
-        );
-      } else {
-        db.query(`select max(pid) from product;`, (err, result1) => {
-          console.log(result1[0]["max(pid)"] + 1);
+  db.query(`select * from product p join category c on c.catid=p.cid where name=?`,[name],(err,result)=>{
+    if (err){
+      throw err;
+    }
+    if(result.length>0){
+      db.query(`select * from product p join category c on c.catid=p.cid where name=? and size=? and color=?`,[name,size,color],(err,result1)=>{
+        if (err){
+          throw err;
+        }
+        if (result1.length>0){
           db.query(
-            `insert into product(pid,name,color,size,cost,cid,stock,des) values(?,?,?,?,?,?,?,?)`,
-            [
-              result1[0]["max(pid)"] + 1,
-              name,
-              color,
-              size,
-              cost,
-              cid,
-              stock,
-              des,
-            ],
+            `select * from category where catid<>?`,
+            [result[0].cid],
             (err, result2) => {
-              res.redirect(`/shoedetails/${result1[0]["max(pid)"] + 1}`);
+              if (err) {
+                throw err;
+              }
+              res.render("update_shoes_from_select.ejs", {
+                result,
+                result2,
+                existsAlready,
+              });
             }
           );
-        });
-      }
+        } else {
+          db.query(`insert into product(pid,name,color,size,cost,cid,stock,des) values(?,?,?,?,?,?,?,?)`,[result[0].pid,name,color,size,result[0].cost,result[0].cid,stock,des],(err,results)=>{
+            res.redirect(`/shoedetails/${result[0].pid}`);
+          });
+        }
+      });
+    } else {
+      db.query(`select max(pid) from product;`, (err, result3) => {
+        console.log(result3[0]["max(pid)"] + 1);
+        db.query(
+          `insert into product(pid,name,color,size,cost,cid,stock,des) values(?,?,?,?,?,?,?,?)`,
+          [
+            result3[0]["max(pid)"] + 1,
+            name,
+            color,
+            size,
+            cost,
+            cid,
+            stock,
+            des,
+          ],
+          (err, result4) => {
+            res.redirect(`/shoedetails/${result3[0]["max(pid)"] + 1}`);
+          }
+        );
+      });
     }
-  );
+  });
 });
 
 app.post("/update_shoe/:pid/:color/:size", (req, res) => {
