@@ -31,6 +31,9 @@ This section list of  major frameworks that built my project here are a few exam
 * [Html](https://www.w3schools.com/html/)
 * [Css](https://www.w3schools.com/css/)
 * [Java Script](https://www.w3schools.com/js/)
+* [Node](https://www.w3schools.com/node/)
+* [Express](https://www.w3schools.com/express/)
+* [Mysql](https://www.w3schools.com/mysql/)
 
 
 
